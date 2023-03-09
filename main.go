@@ -2,22 +2,25 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/version"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/kubernetes"
 
 	"k8s.io/client-go/rest"
 )
 
+const (
+	k8sComponentNamespace = "kube-system"
+)
+
 func main() {
 
 	cf := genericclioptions.NewConfigFlags(true)
-
-	// disable warnings
 	rest.SetDefaultWarningHandler(rest.NoWarnings{})
-
 	clientConfig := cf.ToRawKubeConfigLoader()
 	rc, err := clientConfig.ClientConfig()
 	if err != nil {
@@ -27,102 +30,133 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-
-	rawCfg, err := clientConfig.RawConfig()
+	components := make([]Component, 0)
+	etcdPods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=etcd"})
 	if err != nil {
 		panic(err.Error())
 	}
-
-	// Get the current cluster from the context
-	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
-
-	// Print the current cluster name
-	fmt.Printf("Current cluster: %s\n", clusterName)
-
-	serverVersion, err := clientset.ServerVersion()
-	if err != nil {
-		panic(err.Error())
-	}
-	fmt.Println("---------------------------------------------")
-	fmt.Println(fmt.Sprintf("ServerVersion:%s", serverVersion))
-
-	nodes, err := clientset.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
-	if err != nil {
-		panic(err.Error())
-	}
-
-	etcdPods, err := clientset.CoreV1().Pods("kube-system").List(context.Background(), metav1.ListOptions{LabelSelector: "component=etcd"})
-	if err != nil {
-		panic(err.Error())
-	}
-
 	for _, pod := range etcdPods.Items {
-		etcdImage := pod.Spec.Containers[0].Image
-		fmt.Println(fmt.Sprintf("etcd Name:%s \n ContainerName:%s", pod.Spec.Containers[0].Name, etcdImage))
+		components = append(components, Component{
+			Name:      pod.Spec.Containers[0].Name,
+			Container: pod.Spec.Containers[0].Image,
+		})
 	}
 
-	cmPods, err := clientset.CoreV1().Pods("kube-system").List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-controller-manager"})
+	cmPods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-controller-manager"})
 	if err != nil {
 		panic(err.Error())
 	}
 
 	for _, pod := range cmPods.Items {
-		cmImage := pod.Spec.Containers[0].Image
-		fmt.Println(fmt.Sprintf("controller-manager Name:%s \n ContainerName:%s", pod.Spec.Containers[0].Name, cmImage))
+		components = append(components, Component{
+			Name:      pod.Spec.Containers[0].Name,
+			Container: pod.Spec.Containers[0].Image,
+		})
+	}
+	apiPods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-apiserver"})
+	if err != nil {
+		panic(err.Error())
 	}
 
-	schedulerPod, err := clientset.CoreV1().Pods("kube-system").List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-scheduler"})
+	for _, pod := range apiPods.Items {
+		components = append(components, Component{
+			Name:      pod.Spec.Containers[0].Name,
+			Container: pod.Spec.Containers[0].Image,
+		})
+	}
+
+	schedulerPod, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-scheduler"})
 	if err != nil {
 		panic(err.Error())
 	}
 
 	for _, pod := range schedulerPod.Items {
-		schedulerImage := pod.Spec.Containers[0].Image
-		fmt.Println(fmt.Sprintf("scheduler Name:%s \n ContainerName:%s", pod.Spec.Containers[0].Name, schedulerImage))
+		components = append(components, Component{
+			Name:      pod.Spec.Containers[0].Name,
+			Container: pod.Spec.Containers[0].Image,
+		})
 	}
 
-	fmt.Println("---------------------------------------------")
+	nodes, err := clientset.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
+	if err != nil {
+		panic(err.Error())
+	}
+	nodesInfo := make([]NodeInfo, 0)
 	for _, node := range nodes.Items {
-		name := node.Name
-		kubeletVersion := node.Status.NodeInfo.KubeletVersion
-		containerRuntimeVersion := node.Status.NodeInfo.ContainerRuntimeVersion
-		osImage := node.Status.NodeInfo.OSImage
-		hostname := node.ObjectMeta.Name
-		kernelVersion := node.Status.NodeInfo.KernelVersion
-		kubeProxyVersion := node.Status.NodeInfo.KubeProxyVersion
-		operatingSystem := node.Status.NodeInfo.OperatingSystem
-		architecture := node.Status.NodeInfo.Architecture
-
-		fmt.Println("---------------------------------------------")
-		fmt.Println(fmt.Sprintf("Name:%s", name))
-		fmt.Println(fmt.Sprintf("containerRuntimeVersion:%s", containerRuntimeVersion))
-		fmt.Println(fmt.Sprintf("osImage:%s", osImage))
-		fmt.Println(fmt.Sprintf("hostname:%s", hostname))
-		fmt.Println(fmt.Sprintf("kubeletVersion:%s", kubeletVersion))
-		fmt.Println(fmt.Sprintf("kernelVersion:%s", kernelVersion))
-		fmt.Println(fmt.Sprintf("kubeProxyVersion:%s", kubeProxyVersion))
-		fmt.Println(fmt.Sprintf("operatingSystem:%s", operatingSystem))
-		fmt.Println(fmt.Sprintf("architecture:%s", architecture))
-
-		// Do something with the version information
+		nodesInfo = append(nodesInfo, NodeInfo{
+			NodeName:                node.Name,
+			KubeletVersion:          node.Status.NodeInfo.KubeletVersion,
+			ContainerRuntimeVersion: node.Status.NodeInfo.ContainerRuntimeVersion,
+			OsImage:                 node.Status.NodeInfo.OSImage,
+			Hostname:                node.ObjectMeta.Name,
+			KernelVersion:           node.Status.NodeInfo.KernelVersion,
+			KubeProxyVersion:        node.Status.NodeInfo.KernelVersion,
+			OperatingSystem:         node.Status.NodeInfo.OperatingSystem,
+			Architecture:            node.Status.NodeInfo.Architecture,
+		})
 	}
+	labelSelector := "k8s-app"
+	pods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
+	if err != nil {
+		panic(err.Error())
+	}
+	addons := make([]Addon, 0)
+	for _, pod := range pods.Items {
+		addons = append(addons, Addon{
+			Name:      pod.Name,
+			Container: pod.Spec.Containers[0].Image,
+		})
+	}
+	serverVersion, err := clientset.ServerVersion()
+	if err != nil {
+		panic(err.Error())
+	}
+	rawCfg, err := clientConfig.RawConfig()
+	if err != nil {
+		panic(err.Error())
+	}
+	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
+	k8sCluster := &K8sCluster{
+		ClusterName:  clusterName,
+		Version:      serverVersion,
+		ControlPlane: ControlPlane{Components: components},
+		NodesInfo:    nodesInfo,
+		Addons:       addons,
+	}
+	b, err := json.Marshal(k8sCluster)
+	fmt.Print(string(b))
+}
 
-	addons := []string{
-		"kube-dns",
-		"metrics-server",
-		"dashboard",
-		// Add other add-on names as needed
-	}
-	fmt.Println("-------------------- k8s addons -------------------------------")
-	for _, addon := range addons {
-		addonPods, err := clientset.CoreV1().Pods("kube-system").List(context.Background(), metav1.ListOptions{LabelSelector: "k8s-app=" + addon})
-		if err != nil {
-			panic(err.Error())
-		}
-		for _, pod := range addonPods.Items {
-			addonImage := pod.Spec.Containers[0].Image
-			fmt.Println(fmt.Sprintf("Pod Name:%s \n ContainerName:%s", pod.Name, addonImage))
-			// Do something with the version information
-		}
-	}
+type K8sCluster struct {
+	ClusterName  string        `json:"cluster_name"`
+	Version      *version.Info `json:"version"`
+	ControlPlane ControlPlane  `json:"control_plane"`
+	NodesInfo    []NodeInfo    `json:"node_info"`
+	Addons       []Addon       `json:"addons"`
+}
+
+type NodeInfo struct {
+	NodeName                string `json:"node_name"`
+	KubeletVersion          string `json:"kubelet_version"`
+	ContainerRuntimeVersion string `json:"container_runtime_version"`
+	OsImage                 string `json:"os_image"`
+	Hostname                string `json:"host_name"`
+	KernelVersion           string `json:"kernel_version"`
+	KubeProxyVersion        string `json:"kube_proxy_version"`
+	OperatingSystem         string `json:"operating_system"`
+	Architecture            string `json:"architecture"`
+}
+
+type Addon struct {
+	Name      string `json:"name"`
+	Container string `json:"container"`
+}
+
+type ControlPlane struct {
+	Components []Component `json:"components"`
+}
+
+type Component struct {
+	Name      string `json:"name"`
+	Container string `json:"container"`
 }
