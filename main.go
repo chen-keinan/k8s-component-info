@@ -83,6 +83,13 @@ func main() {
 	}
 	nodesInfo := make([]NodeInfo, 0)
 	for _, node := range nodes.Items {
+		nodeRole := "worker"
+		if _, ok := node.Labels["node-role.kubernetes.io/control-plane"]; ok {
+			nodeRole = "master"
+		}
+		if _, ok := node.Labels["node-role.kubernetes.io/master"]; ok {
+			nodeRole = "master"
+		}
 		nodesInfo = append(nodesInfo, NodeInfo{
 			NodeName:                node.Name,
 			KubeletVersion:          node.Status.NodeInfo.KubeletVersion,
@@ -93,7 +100,9 @@ func main() {
 			KubeProxyVersion:        node.Status.NodeInfo.KernelVersion,
 			OperatingSystem:         node.Status.NodeInfo.OperatingSystem,
 			Architecture:            node.Status.NodeInfo.Architecture,
+			NodeRole:                nodeRole,
 		})
+
 	}
 	labelSelector := "k8s-app"
 	pods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
@@ -136,6 +145,7 @@ type K8sCluster struct {
 }
 
 type NodeInfo struct {
+	NodeRole                string `json:"node_role"`
 	NodeName                string `json:"node_name"`
 	KubeletVersion          string `json:"kubelet_version"`
 	ContainerRuntimeVersion string `json:"container_runtime_version"`

@@ -36,6 +36,7 @@
   },
   "node_info": [
     {
+      "node_role": "master",
       "node_name": "kind-control-plane",
       "kubelet_version": "v1.21.1",
       "container_runtime_version": "containerd://1.5.2",
@@ -47,6 +48,7 @@
       "architecture": "arm64"
     },
     {
+      "node_role": "worker",
       "node_name": "kind-worker",
       "kubelet_version": "v1.21.1",
       "container_runtime_version": "containerd://1.5.2",
@@ -58,6 +60,7 @@
       "architecture": "arm64"
     },
     {
+      "node_role": "worker",
       "node_name": "kind-worker2",
       "kubelet_version": "v1.21.1",
       "container_runtime_version": "containerd://1.5.2",
