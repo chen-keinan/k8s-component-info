@@ -28,6 +28,17 @@ func main() {
 		panic(err.Error())
 	}
 
+	rawCfg, err := clientConfig.RawConfig()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	// Get the current cluster from the context
+	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
+
+	// Print the current cluster name
+	fmt.Printf("Current cluster: %s\n", clusterName)
+
 	serverVersion, err := clientset.ServerVersion()
 	if err != nil {
 		panic(err.Error())
