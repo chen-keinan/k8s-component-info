@@ -3,8 +3,8 @@ package k8s
 import (
 	"context"
 
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
 	"k8s.io/client-go/kubernetes"
 )
 
@@ -43,14 +43,10 @@ func CollectNodes(clientset *kubernetes.Clientset) []NodeInfo {
 }
 
 func CollectCoreComponents(clientset *kubernetes.Clientset) []Component {
-	coreLabelSelector := "component"
-	corePods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.TODO(), metav1.ListOptions{LabelSelector: coreLabelSelector})
-	if err != nil {
-		panic(err.Error())
-	}
-
+	labelSelector := "component"
+	pods := GetPodsInfo(clientset, labelSelector)
 	components := make([]Component, 0)
-	for _, pod := range corePods.Items {
+	for _, pod := range pods.Items {
 		components = append(components, Component{
 			Name:      pod.Spec.Containers[0].Name,
 			Container: pod.Spec.Containers[0].Image,
@@ -61,10 +57,7 @@ func CollectCoreComponents(clientset *kubernetes.Clientset) []Component {
 
 func CollectAddons(clientset *kubernetes.Clientset) []Addon {
 	labelSelector := "k8s-app"
-	pods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
-	if err != nil {
-		panic(err.Error())
-	}
+	pods := GetPodsInfo(clientset, labelSelector)
 	addons := make([]Addon, 0)
 	for _, pod := range pods.Items {
 		addons = append(addons, Addon{
@@ -73,4 +66,12 @@ func CollectAddons(clientset *kubernetes.Clientset) []Addon {
 		})
 	}
 	return addons
+}
+
+func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string) *corev1.PodList {
+	pods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
+	if err != nil {
+		panic(err.Error())
+	}
+	return pods
 }
