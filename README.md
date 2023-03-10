@@ -1,5 +1,14 @@
 # k8s-component-info
 
+## Description
+k8s-component-info is an open source project which collect component and version info from runnning k8s cluster and produce k8s bill od materials 
+
+```sh
+go build main.go
+
+./main
+```
+
 ```json
 {
   "cluster_name": "kind-kind",
