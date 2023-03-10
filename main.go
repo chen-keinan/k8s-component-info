@@ -30,53 +30,20 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
+
+	coreLabelSelector := "component"
+	corePods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.TODO(), metav1.ListOptions{LabelSelector: coreLabelSelector})
+	if err != nil {
+		panic(err.Error())
+	}
+
 	components := make([]Component, 0)
-	etcdPods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=etcd"})
-	if err != nil {
-		panic(err.Error())
-	}
-	for _, pod := range etcdPods.Items {
+	for _, pod := range corePods.Items {
 		components = append(components, Component{
 			Name:      pod.Spec.Containers[0].Name,
 			Container: pod.Spec.Containers[0].Image,
 		})
 	}
-
-	cmPods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-controller-manager"})
-	if err != nil {
-		panic(err.Error())
-	}
-
-	for _, pod := range cmPods.Items {
-		components = append(components, Component{
-			Name:      pod.Spec.Containers[0].Name,
-			Container: pod.Spec.Containers[0].Image,
-		})
-	}
-	apiPods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-apiserver"})
-	if err != nil {
-		panic(err.Error())
-	}
-
-	for _, pod := range apiPods.Items {
-		components = append(components, Component{
-			Name:      pod.Spec.Containers[0].Name,
-			Container: pod.Spec.Containers[0].Image,
-		})
-	}
-
-	schedulerPod, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.Background(), metav1.ListOptions{LabelSelector: "component=kube-scheduler"})
-	if err != nil {
-		panic(err.Error())
-	}
-
-	for _, pod := range schedulerPod.Items {
-		components = append(components, Component{
-			Name:      pod.Spec.Containers[0].Name,
-			Container: pod.Spec.Containers[0].Image,
-		})
-	}
-
 	nodes, err := clientset.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
 	if err != nil {
 		panic(err.Error())
