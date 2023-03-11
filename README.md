@@ -10,7 +10,7 @@ go build main.go
 ```
 
 ```json
-{
+{{
   "cluster_name": "kind-kind",
   "version": {
     "major": "1",
@@ -30,12 +30,12 @@ go build main.go
         "container": "k8s.gcr.io/etcd:3.4.13-0"
       },
       {
-        "name": "kube-controller-manager",
-        "container": "k8s.gcr.io/kube-controller-manager:v1.21.1"
-      },
-      {
         "name": "kube-apiserver",
         "container": "k8s.gcr.io/kube-apiserver:v1.21.1"
+      },
+      {
+        "name": "kube-controller-manager",
+        "container": "k8s.gcr.io/kube-controller-manager:v1.21.1"
       },
       {
         "name": "kube-scheduler",
@@ -83,35 +83,35 @@ go build main.go
   ],
   "addons": [
     {
-      "name": "coredns-558bd4d5db-d4tx8",
+      "name": "coredns",
       "container": "k8s.gcr.io/coredns/coredns:v1.8.0"
     },
     {
-      "name": "coredns-558bd4d5db-vsqqp",
+      "name": "coredns",
       "container": "k8s.gcr.io/coredns/coredns:v1.8.0"
     },
     {
-      "name": "kindnet-2s5ds",
+      "name": "kindnet-cni",
       "container": "docker.io/kindest/kindnetd:v20210326-1e038dc5"
     },
     {
-      "name": "kindnet-d8lt5",
+      "name": "kindnet-cni",
       "container": "docker.io/kindest/kindnetd:v20210326-1e038dc5"
     },
     {
-      "name": "kindnet-wh5h6",
+      "name": "kindnet-cni",
       "container": "docker.io/kindest/kindnetd:v20210326-1e038dc5"
     },
     {
-      "name": "kube-proxy-lcrc6",
+      "name": "kube-proxy",
       "container": "k8s.gcr.io/kube-proxy:v1.21.1"
     },
     {
-      "name": "kube-proxy-n8rt5",
+      "name": "kube-proxy",
       "container": "k8s.gcr.io/kube-proxy:v1.21.1"
     },
     {
-      "name": "kube-proxy-tdpgn",
+      "name": "kube-proxy",
       "container": "k8s.gcr.io/kube-proxy:v1.21.1"
     }
   ]

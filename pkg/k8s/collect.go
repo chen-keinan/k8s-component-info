@@ -61,7 +61,7 @@ func CollectAddons(clientset *kubernetes.Clientset) []Addon {
 	addons := make([]Addon, 0)
 	for _, pod := range pods.Items {
 		addons = append(addons, Addon{
-			Name:      pod.Name,
+			Name:      pod.Spec.Containers[0].Name,
 			Container: pod.Spec.Containers[0].Image,
 		})
 	}
