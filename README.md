@@ -10,7 +10,7 @@ go build main.go
 ```
 
 ```json
-{{
+{
   "cluster_name": "kind-kind",
   "version": {
     "major": "1",
@@ -43,7 +43,7 @@ go build main.go
       }
     ]
   },
-  "node_info": [
+  "nodes": [
     {
       "node_role": "master",
       "node_name": "kind-control-plane",

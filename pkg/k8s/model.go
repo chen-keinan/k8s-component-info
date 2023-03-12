@@ -8,7 +8,7 @@ type Cluster struct {
 	ClusterName  string        `json:"cluster_name"`
 	Version      *version.Info `json:"version"`
 	ControlPlane ControlPlane  `json:"control_plane"`
-	NodesInfo    []NodeInfo    `json:"node_info"`
+	NodesInfo    []NodeInfo    `json:"nodes"`
 	Addons       []Addon       `json:"addons"`
 }
 
