@@ -1,0 +1,94 @@
+{
+    "cluster_name": "default",
+    "version": {
+        "major": "1",
+        "minor": "24",
+        "gitVersion": "v1.24.11+rke2r1",
+        "gitCommit": "0f75679e3346160939924550fd3591462a4afec6",
+        "gitTreeState": "clean",
+        "buildDate": "2023-02-28T20:43:36Z",
+        "goVersion": "go1.19.6 X:boringcrypto",
+        "compiler": "gc",
+        "platform": "linux/amd64"
+    },
+    "control_plane": {
+        "components": [
+            {
+                "name": "cloud-controller-manager",
+                "container": "index.docker.io/rancher/rke2-cloud-provider:v1.26.1-build20230210"
+            },
+            {
+                "name": "etcd",
+                "container": "index.docker.io/rancher/hardened-etcd:v3.5.4-k3s1-build20221011"
+            },
+            {
+                "name": "kube-apiserver",
+                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+            },
+            {
+                "name": "kube-controller-manager",
+                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+            },
+            {
+                "name": "kube-proxy",
+                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+            },
+            {
+                "name": "kube-proxy",
+                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+            },
+            {
+                "name": "kube-scheduler",
+                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+            }
+        ]
+    },
+    "nodes": [
+        {
+            "node_role": "master",
+            "node_name": "ip-10-0-1-133",
+            "kubelet_version": "v1.24.11+rke2r1",
+            "container_runtime_version": "containerd://1.6.15-k3s1",
+            "os_image": "Ubuntu 22.04 LTS",
+            "host_name": "ip-10-0-1-133",
+            "kernel_version": "5.15.0-1015-aws",
+            "kube_proxy_version": "5.15.0-1015-aws",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        },
+        {
+            "node_role": "worker",
+            "node_name": "ip-10-0-1-243",
+            "kubelet_version": "v1.24.11+rke2r1",
+            "container_runtime_version": "containerd://1.6.15-k3s1",
+            "os_image": "Ubuntu 22.04 LTS",
+            "host_name": "ip-10-0-1-243",
+            "kernel_version": "5.15.0-1015-aws",
+            "kube_proxy_version": "5.15.0-1015-aws",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        }
+    ],
+    "addons": [
+        {
+            "name": "calico-node",
+            "container": "rancher/hardened-calico:v3.25.0-build20230209"
+        },
+        {
+            "name": "calico-node",
+            "container": "rancher/hardened-calico:v3.25.0-build20230209"
+        },
+        {
+            "name": "coredns",
+            "container": "rancher/hardened-coredns:v1.9.3-build20221011"
+        },
+        {
+            "name": "coredns",
+            "container": "rancher/hardened-coredns:v1.9.3-build20221011"
+        },
+        {
+            "name": "autoscaler",
+            "container": "rancher/hardened-cluster-autoscaler:v1.8.5-build20221011"
+        }
+    ]
+}

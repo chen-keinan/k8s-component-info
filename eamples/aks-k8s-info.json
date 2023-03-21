@@ -1,0 +1,74 @@
+{
+    "cluster_name": "aks5494",
+    "version": {
+        "major": "1",
+        "minor": "25",
+        "gitVersion": "v1.25.4",
+        "gitCommit": "c5ecdadb82909369302fddd24aa2445effd8112e",
+        "gitTreeState": "clean",
+        "buildDate": "2023-02-10T14:49:31Z",
+        "goVersion": "go1.19.3",
+        "compiler": "gc",
+        "platform": "linux/amd64"
+    },
+    "control_plane": {
+        "components": [
+            {
+                "name": "konnectivity-agent",
+                "container": "mcr.microsoft.com/oss/kubernetes/apiserver-network-proxy/agent:v0.0.33-hotfix.20221110"
+            },
+            {
+                "name": "konnectivity-agent",
+                "container": "mcr.microsoft.com/oss/kubernetes/apiserver-network-proxy/agent:v0.0.33-hotfix.20221110"
+            },
+            {
+                "name": "kube-proxy",
+                "container": "mcr.microsoft.com/oss/kubernetes/kube-proxy:v1.25.4-hotfix.20221216"
+            }
+        ]
+    },
+    "nodes": [
+        {
+            "node_role": "worker",
+            "node_name": "aks-default-09549753-vmss000000",
+            "kubelet_version": "v1.25.4",
+            "container_runtime_version": "containerd://1.6.17+azure-1",
+            "os_image": "Ubuntu 22.04.1 LTS",
+            "host_name": "aks-default-09549753-vmss000000",
+            "kernel_version": "5.15.0-1033-azure",
+            "kube_proxy_version": "5.15.0-1033-azure",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        }
+    ],
+    "addons": [
+        {
+            "name": "azure-ip-masq-agent",
+            "container": "mcr.microsoft.com/aks/ip-masq-agent-v2:v0.1.5"
+        },
+        {
+            "name": "cloud-node-manager",
+            "container": "mcr.microsoft.com/oss/kubernetes/azure-cloud-node-manager:v1.25.5"
+        },
+        {
+            "name": "coredns",
+            "container": "mcr.microsoft.com/oss/kubernetes/coredns:v1.9.3"
+        },
+        {
+            "name": "coredns",
+            "container": "mcr.microsoft.com/oss/kubernetes/coredns:v1.9.3"
+        },
+        {
+            "name": "autoscaler",
+            "container": "mcr.microsoft.com/oss/kubernetes/autoscaler/cluster-proportional-autoscaler:1.8.5"
+        },
+        {
+            "name": "metrics-server-vpa",
+            "container": "mcr.microsoft.com/oss/kubernetes/autoscaler/addon-resizer:1.8.14"
+        },
+        {
+            "name": "metrics-server-vpa",
+            "container": "mcr.microsoft.com/oss/kubernetes/autoscaler/addon-resizer:1.8.14"
+        }
+    ]
+}

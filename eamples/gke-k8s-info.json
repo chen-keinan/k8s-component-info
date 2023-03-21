@@ -1,0 +1,86 @@
+{
+    "cluster_name": "gke1768",
+    "version": {
+        "major": "1",
+        "minor": "24",
+        "gitVersion": "v1.24.10-gke.2300",
+        "gitCommit": "1d7ae0799b40b0cd95502e3a5e698db62572e341",
+        "gitTreeState": "clean",
+        "buildDate": "2023-02-22T09:28:49Z",
+        "goVersion": "go1.19.6 X:boringcrypto",
+        "compiler": "gc",
+        "platform": "linux/amd64"
+    },
+    "control_plane": {
+        "components": [
+            {
+                "name": "fluentbit",
+                "container": "gke.gcr.io/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410"
+            },
+            {
+                "name": "gke-metrics-agent",
+                "container": "gke.gcr.io/gke-metrics-agent:1.8.3-gke.2"
+            },
+            {
+                "name": "kube-proxy",
+                "container": "gke.gcr.io/kube-proxy-amd64:v1.24.10-gke.2300"
+            }
+        ]
+    },
+    "nodes": [
+        {
+            "node_role": "worker",
+            "node_name": "gke-gke1768-default-pool-f6fd385f-rq2d",
+            "kubelet_version": "v1.24.10-gke.2300",
+            "container_runtime_version": "containerd://1.6.9",
+            "os_image": "Container-Optimized OS from Google",
+            "host_name": "gke-gke1768-default-pool-f6fd385f-rq2d",
+            "kernel_version": "5.10.162+",
+            "kube_proxy_version": "5.10.162+",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        }
+    ],
+    "addons": [
+        {
+            "name": "event-exporter",
+            "container": "gke.gcr.io/event-exporter:v0.4.1-gke.0"
+        },
+        {
+            "name": "fluentbit",
+            "container": "gke.gcr.io/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410"
+        },
+        {
+            "name": "gke-metrics-agent",
+            "container": "gke.gcr.io/gke-metrics-agent:1.8.3-gke.2"
+        },
+        {
+            "name": "konnectivity-agent",
+            "container": "gke.gcr.io/proxy-agent:v0.0.33-gke.0"
+        },
+        {
+            "name": "autoscaler",
+            "container": "gke.gcr.io/cluster-proportional-autoscaler:1.8.4-gke.1"
+        },
+        {
+            "name": "kubedns",
+            "container": "gke.gcr.io/k8s-dns-kube-dns:1.22.12-gke.0"
+        },
+        {
+            "name": "autoscaler",
+            "container": "gke.gcr.io/cluster-proportional-autoscaler:1.8.4-gke.1"
+        },
+        {
+            "name": "default-http-backend",
+            "container": "gke.gcr.io/ingress-gce-404-server-with-metrics:v1.16.1"
+        },
+        {
+            "name": "metrics-server",
+            "container": "gke.gcr.io/metrics-server:v0.5.2-gke.3"
+        },
+        {
+            "name": "csi-driver-registrar",
+            "container": "gke.gcr.io/csi-node-driver-registrar:v2.5.1-gke.1"
+        }
+    ]
+}
