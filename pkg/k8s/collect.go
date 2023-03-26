@@ -3,6 +3,8 @@ package k8s
 import (
 	"context"
 
+	"fmt"
+	containerimage "github.com/google/go-containerregistry/pkg/name"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -42,28 +44,36 @@ func CollectNodes(clientset *kubernetes.Clientset) []NodeInfo {
 	return nodesInfo
 }
 
-func CollectCoreComponents(clientset *kubernetes.Clientset) []Component {
+func CollectCoreComponents(clientset *kubernetes.Clientset) []*Component {
 	labelSelector := "component"
 	pods := GetPodsInfo(clientset, labelSelector)
-	components := make([]Component, 0)
+	components := make([]*Component, 0)
+
 	for _, pod := range pods.Items {
-		components = append(components, Component{
-			Name:      pod.Spec.Containers[0].Name,
-			Container: pod.Spec.Containers[0].Image,
-		})
+		for _, s := range pod.Status.ContainerStatuses {
+			c, err := GetComponent(s)
+			if err != nil {
+				continue
+			}
+			components = append(components, c)
+		}
+
 	}
 	return components
 }
 
-func CollectAddons(clientset *kubernetes.Clientset) []Addon {
+func CollectAddons(clientset *kubernetes.Clientset) []*Component {
 	labelSelector := "k8s-app"
 	pods := GetPodsInfo(clientset, labelSelector)
-	addons := make([]Addon, 0)
+	addons := make([]*Component, 0)
 	for _, pod := range pods.Items {
-		addons = append(addons, Addon{
-			Name:      pod.Spec.Containers[0].Name,
-			Container: pod.Spec.Containers[0].Image,
-		})
+		for _, s := range pod.Status.ContainerStatuses {
+			c, err := GetComponent(s)
+			if err != nil {
+				continue
+			}
+			addons = append(addons, c)
+		}
 	}
 	return addons
 }
@@ -74,4 +84,27 @@ func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string) *corev1.
 		panic(err.Error())
 	}
 	return pods
+}
+
+const containerType = "container"
+
+func GetComponent(containerStatus corev1.ContainerStatus) (*Component, error) {
+	imageRef, err := containerimage.ParseReference(containerStatus.ImageID)
+	if err != nil {
+		return nil, err
+	}
+	repoName := imageRef.Context().RepositoryStr()
+	registryName := imageRef.Context().RegistryStr()
+
+	bomRef := fmt.Sprintf("pkg:oci/%s@%s?repository_url=%s/library/%s",
+		repoName,
+		imageRef.Context().Digest(imageRef.Identifier()).DigestStr(),
+		registryName,
+		repoName)
+	return &Component{
+		Type:   containerType,
+		Name:   containerStatus.Image,
+		BomRef: bomRef,
+		Purl:   bomRef,
+	}, nil
 }

@@ -48,5 +48,8 @@ func main() {
 		Addons:       addons,
 	}
 	b, err := json.Marshal(k8sCluster)
+	if err != nil {
+		panic(err.Error())
+	}
 	fmt.Print(string(b))
 }

@@ -5,36 +5,39 @@ import (
 )
 
 type Cluster struct {
-	ClusterName  string        `json:"cluster_name"`
-	Version      *version.Info `json:"version"`
-	ControlPlane ControlPlane  `json:"control_plane"`
-	NodesInfo    []NodeInfo    `json:"nodes"`
-	Addons       []Addon       `json:"addons"`
+	ClusterName  string        `json:"cluster_name,omitempty"`
+	Version      *version.Info `json:"version,omitempty"`
+	ControlPlane ControlPlane  `json:"control_plane,omitempty"`
+	NodesInfo    []NodeInfo    `json:"nodes,omitempty"`
+	Addons       []*Component  `json:"addons,omitempty"`
 }
 
 type NodeInfo struct {
-	NodeRole                string `json:"node_role"`
-	NodeName                string `json:"node_name"`
-	KubeletVersion          string `json:"kubelet_version"`
-	ContainerRuntimeVersion string `json:"container_runtime_version"`
-	OsImage                 string `json:"os_image"`
-	Hostname                string `json:"host_name"`
-	KernelVersion           string `json:"kernel_version"`
-	KubeProxyVersion        string `json:"kube_proxy_version"`
-	OperatingSystem         string `json:"operating_system"`
-	Architecture            string `json:"architecture"`
-}
-
-type Addon struct {
-	Name      string `json:"name"`
-	Container string `json:"container"`
+	NodeRole                string `json:"node_role,omitempty"`
+	NodeName                string `json:"node_name,omitempty"`
+	KubeletVersion          string `json:"kubelet_version,omitempty"`
+	ContainerRuntimeVersion string `json:"container_runtime_version,omitempty"`
+	OsImage                 string `json:"os_image,omitempty"`
+	Hostname                string `json:"host_name,omitempty"`
+	KernelVersion           string `json:"kernel_version,omitempty"`
+	KubeProxyVersion        string `json:"kube_proxy_version,omitempty"`
+	OperatingSystem         string `json:"operating_system,omitempty"`
+	Architecture            string `json:"architecture,omitempty"`
 }
 
 type ControlPlane struct {
-	Components []Component `json:"components"`
+	Components []*Component `json:"components,omitempty"`
 }
 
 type Component struct {
-	Name      string `json:"name"`
-	Container string `json:"container"`
+	BomRef   string    `json:"bom-ref,omitempty"`
+	Type     string    `json:"type,omitempty"`
+	Name     string    `json:"name,omitempty"`
+	Purl     string    `json:"purl,omitempty"`
+	Version  string    `json:"version,omitempty"`
+	Licenses []License `json:"licenses,omitempty"`
+}
+
+type License struct {
+	Expression string `json:"expression,omitempty"`
 }

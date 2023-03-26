@@ -1,12 +1,12 @@
 {
-    "cluster_name": "gke1768",
+    "cluster_name": "gke1794",
     "version": {
         "major": "1",
         "minor": "24",
-        "gitVersion": "v1.24.10-gke.2300",
-        "gitCommit": "1d7ae0799b40b0cd95502e3a5e698db62572e341",
+        "gitVersion": "v1.24.11-gke.1000",
+        "gitCommit": "97cc004713d759c35a13ffb59c7b30db82a86c4d",
         "gitTreeState": "clean",
-        "buildDate": "2023-02-22T09:28:49Z",
+        "buildDate": "2023-03-14T10:48:47Z",
         "goVersion": "go1.19.6 X:boringcrypto",
         "compiler": "gc",
         "platform": "linux/amd64"
@@ -14,27 +14,39 @@
     "control_plane": {
         "components": [
             {
-                "name": "fluentbit",
-                "container": "gke.gcr.io/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410"
+                "bom-ref": "pkg:oci/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410?repository_url=gke.gcr.io/library/fluent-bit",
+                "type": "container",
+                "name": "sha256:866b957b66805ff45dd40f3e2ff76f9f7b75bc49d8c0219dd3267e4752cbeb26",
+                "purl": "pkg:oci/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410?repository_url=gke.gcr.io/library/fluent-bit"
             },
             {
-                "name": "gke-metrics-agent",
-                "container": "gke.gcr.io/gke-metrics-agent:1.8.3-gke.2"
+                "bom-ref": "pkg:oci/fluent-bit-gke-exporter@sha256:89bf6f01430e2b2568a32a42b403a7c43a05878a76e71bb8d7ca23f15f4cfc99?repository_url=gke.gcr.io/library/fluent-bit-gke-exporter",
+                "type": "container",
+                "name": "gke.gcr.io/fluent-bit-gke-exporter:v0.22.0-gke.0",
+                "purl": "pkg:oci/fluent-bit-gke-exporter@sha256:89bf6f01430e2b2568a32a42b403a7c43a05878a76e71bb8d7ca23f15f4cfc99?repository_url=gke.gcr.io/library/fluent-bit-gke-exporter"
             },
             {
-                "name": "kube-proxy",
-                "container": "gke.gcr.io/kube-proxy-amd64:v1.24.10-gke.2300"
+                "bom-ref": "pkg:oci/gke-metrics-agent@sha256:563b772024fb6c8d485b2d1748bae636807ae8e7d7e4e2be4463fcf47282eaaa?repository_url=gke.gcr.io/library/gke-metrics-agent",
+                "type": "container",
+                "name": "gke.gcr.io/gke-metrics-agent:1.8.3-gke.2",
+                "purl": "pkg:oci/gke-metrics-agent@sha256:563b772024fb6c8d485b2d1748bae636807ae8e7d7e4e2be4463fcf47282eaaa?repository_url=gke.gcr.io/library/gke-metrics-agent"
+            },
+            {
+                "bom-ref": "pkg:oci/library/sha256@87a0be9ace506bee61227a151a4c30a6df807632f22e47279f6224091f45b05f?repository_url=index.docker.io/library/library/sha256",
+                "type": "container",
+                "name": "gke.gcr.io/kube-proxy-amd64:v1.24.11-gke.1000",
+                "purl": "pkg:oci/library/sha256@87a0be9ace506bee61227a151a4c30a6df807632f22e47279f6224091f45b05f?repository_url=index.docker.io/library/library/sha256"
             }
         ]
     },
     "nodes": [
         {
             "node_role": "worker",
-            "node_name": "gke-gke1768-default-pool-f6fd385f-rq2d",
-            "kubelet_version": "v1.24.10-gke.2300",
-            "container_runtime_version": "containerd://1.6.9",
+            "node_name": "gke-gke1794-default-pool-76f92e76-l8jb",
+            "kubelet_version": "v1.24.11-gke.1000",
+            "container_runtime_version": "containerd://1.6.18",
             "os_image": "Container-Optimized OS from Google",
-            "host_name": "gke-gke1768-default-pool-f6fd385f-rq2d",
+            "host_name": "gke-gke1794-default-pool-76f92e76-l8jb",
             "kernel_version": "5.10.162+",
             "kube_proxy_version": "5.10.162+",
             "operating_system": "linux",
@@ -43,44 +55,106 @@
     ],
     "addons": [
         {
-            "name": "event-exporter",
-            "container": "gke.gcr.io/event-exporter:v0.4.1-gke.0"
+            "bom-ref": "pkg:oci/event-exporter@sha256:d2666b4eb58b9cf6814f3a2b4c4391b821ec58be547221fc4b2000dbe71c4184?repository_url=gke.gcr.io/library/event-exporter",
+            "type": "container",
+            "name": "gke.gcr.io/event-exporter:v0.4.1-gke.0",
+            "purl": "pkg:oci/event-exporter@sha256:d2666b4eb58b9cf6814f3a2b4c4391b821ec58be547221fc4b2000dbe71c4184?repository_url=gke.gcr.io/library/event-exporter"
         },
         {
-            "name": "fluentbit",
-            "container": "gke.gcr.io/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410"
+            "bom-ref": "pkg:oci/prometheus-to-sd@sha256:39fef38cc66dbf89af3df1e5f963bb5ce435148e60a3549683e60c444a894f7b?repository_url=gke.gcr.io/library/prometheus-to-sd",
+            "type": "container",
+            "name": "gke.gcr.io/prometheus-to-sd:v0.11.3-gke.0",
+            "purl": "pkg:oci/prometheus-to-sd@sha256:39fef38cc66dbf89af3df1e5f963bb5ce435148e60a3549683e60c444a894f7b?repository_url=gke.gcr.io/library/prometheus-to-sd"
         },
         {
-            "name": "gke-metrics-agent",
-            "container": "gke.gcr.io/gke-metrics-agent:1.8.3-gke.2"
+            "bom-ref": "pkg:oci/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410?repository_url=gke.gcr.io/library/fluent-bit",
+            "type": "container",
+            "name": "sha256:866b957b66805ff45dd40f3e2ff76f9f7b75bc49d8c0219dd3267e4752cbeb26",
+            "purl": "pkg:oci/fluent-bit@sha256:c739802603065c0bcb56fe50537fd7f2ad17c718a0111c3db8bd614bffceb410?repository_url=gke.gcr.io/library/fluent-bit"
         },
         {
-            "name": "konnectivity-agent",
-            "container": "gke.gcr.io/proxy-agent:v0.0.33-gke.0"
+            "bom-ref": "pkg:oci/fluent-bit-gke-exporter@sha256:89bf6f01430e2b2568a32a42b403a7c43a05878a76e71bb8d7ca23f15f4cfc99?repository_url=gke.gcr.io/library/fluent-bit-gke-exporter",
+            "type": "container",
+            "name": "gke.gcr.io/fluent-bit-gke-exporter:v0.22.0-gke.0",
+            "purl": "pkg:oci/fluent-bit-gke-exporter@sha256:89bf6f01430e2b2568a32a42b403a7c43a05878a76e71bb8d7ca23f15f4cfc99?repository_url=gke.gcr.io/library/fluent-bit-gke-exporter"
         },
         {
-            "name": "autoscaler",
-            "container": "gke.gcr.io/cluster-proportional-autoscaler:1.8.4-gke.1"
+            "bom-ref": "pkg:oci/gke-metrics-agent@sha256:563b772024fb6c8d485b2d1748bae636807ae8e7d7e4e2be4463fcf47282eaaa?repository_url=gke.gcr.io/library/gke-metrics-agent",
+            "type": "container",
+            "name": "gke.gcr.io/gke-metrics-agent:1.8.3-gke.2",
+            "purl": "pkg:oci/gke-metrics-agent@sha256:563b772024fb6c8d485b2d1748bae636807ae8e7d7e4e2be4463fcf47282eaaa?repository_url=gke.gcr.io/library/gke-metrics-agent"
         },
         {
-            "name": "kubedns",
-            "container": "gke.gcr.io/k8s-dns-kube-dns:1.22.12-gke.0"
+            "bom-ref": "pkg:oci/proxy-agent@sha256:54927d5677ff4cf4db546c201eb4ae15591fb6bc5c7563aa05dd440b35f1f400?repository_url=gke.gcr.io/library/proxy-agent",
+            "type": "container",
+            "name": "sha256:b27292ba1f8fb5f7cdb1c90c50c9ea84bf7c554749cd660198fcc04c0d66126e",
+            "purl": "pkg:oci/proxy-agent@sha256:54927d5677ff4cf4db546c201eb4ae15591fb6bc5c7563aa05dd440b35f1f400?repository_url=gke.gcr.io/library/proxy-agent"
         },
         {
-            "name": "autoscaler",
-            "container": "gke.gcr.io/cluster-proportional-autoscaler:1.8.4-gke.1"
+            "bom-ref": "pkg:oci/gke-release-staging/cluster-proportional-autoscaler@sha256:0f232ba18b63363e33f205d0242ef98324fb388434f8598c2fc8e967dca146bc?repository_url=asia.gcr.io/library/gke-release-staging/cluster-proportional-autoscaler",
+            "type": "container",
+            "name": "asia.gcr.io/gke-release-staging/cluster-proportional-autoscaler:1.8.4-gke.1",
+            "purl": "pkg:oci/gke-release-staging/cluster-proportional-autoscaler@sha256:0f232ba18b63363e33f205d0242ef98324fb388434f8598c2fc8e967dca146bc?repository_url=asia.gcr.io/library/gke-release-staging/cluster-proportional-autoscaler"
         },
         {
-            "name": "default-http-backend",
-            "container": "gke.gcr.io/ingress-gce-404-server-with-metrics:v1.16.1"
+            "bom-ref": "pkg:oci/k8s-dns-dnsmasq-nanny@sha256:bb7a46a59bd49084b619d53cbb1b5201595f3d43984aad7c042e57c0ab515b86?repository_url=gke.gcr.io/library/k8s-dns-dnsmasq-nanny",
+            "type": "container",
+            "name": "gke.gcr.io/k8s-dns-dnsmasq-nanny:1.22.12-gke.0",
+            "purl": "pkg:oci/k8s-dns-dnsmasq-nanny@sha256:bb7a46a59bd49084b619d53cbb1b5201595f3d43984aad7c042e57c0ab515b86?repository_url=gke.gcr.io/library/k8s-dns-dnsmasq-nanny"
         },
         {
-            "name": "metrics-server",
-            "container": "gke.gcr.io/metrics-server:v0.5.2-gke.3"
+            "bom-ref": "pkg:oci/k8s-dns-kube-dns@sha256:b18b51683f6633979434a24ca2341e3b6bab8af0167b1be6b43f901aa615b38e?repository_url=gke.gcr.io/library/k8s-dns-kube-dns",
+            "type": "container",
+            "name": "gke.gcr.io/k8s-dns-kube-dns:1.22.12-gke.0",
+            "purl": "pkg:oci/k8s-dns-kube-dns@sha256:b18b51683f6633979434a24ca2341e3b6bab8af0167b1be6b43f901aa615b38e?repository_url=gke.gcr.io/library/k8s-dns-kube-dns"
         },
         {
-            "name": "csi-driver-registrar",
-            "container": "gke.gcr.io/csi-node-driver-registrar:v2.5.1-gke.1"
+            "bom-ref": "pkg:oci/prometheus-to-sd@sha256:39fef38cc66dbf89af3df1e5f963bb5ce435148e60a3549683e60c444a894f7b?repository_url=gke.gcr.io/library/prometheus-to-sd",
+            "type": "container",
+            "name": "gke.gcr.io/prometheus-to-sd:v0.11.3-gke.0",
+            "purl": "pkg:oci/prometheus-to-sd@sha256:39fef38cc66dbf89af3df1e5f963bb5ce435148e60a3549683e60c444a894f7b?repository_url=gke.gcr.io/library/prometheus-to-sd"
+        },
+        {
+            "bom-ref": "pkg:oci/k8s-dns-sidecar@sha256:92aa53b2cde450a93ad283ccac66cf193ffce425c0717b330b790b1364b40e9d?repository_url=gke.gcr.io/library/k8s-dns-sidecar",
+            "type": "container",
+            "name": "gke.gcr.io/k8s-dns-sidecar:1.22.12-gke.0",
+            "purl": "pkg:oci/k8s-dns-sidecar@sha256:92aa53b2cde450a93ad283ccac66cf193ffce425c0717b330b790b1364b40e9d?repository_url=gke.gcr.io/library/k8s-dns-sidecar"
+        },
+        {
+            "bom-ref": "pkg:oci/gke-release-staging/cluster-proportional-autoscaler@sha256:0f232ba18b63363e33f205d0242ef98324fb388434f8598c2fc8e967dca146bc?repository_url=asia.gcr.io/library/gke-release-staging/cluster-proportional-autoscaler",
+            "type": "container",
+            "name": "asia.gcr.io/gke-release-staging/cluster-proportional-autoscaler:1.8.4-gke.1",
+            "purl": "pkg:oci/gke-release-staging/cluster-proportional-autoscaler@sha256:0f232ba18b63363e33f205d0242ef98324fb388434f8598c2fc8e967dca146bc?repository_url=asia.gcr.io/library/gke-release-staging/cluster-proportional-autoscaler"
+        },
+        {
+            "bom-ref": "pkg:oci/ingress-gce-404-server-with-metrics@sha256:183dee42ea6bca468ab1ef9a1143f46400fc7443ff59e58f17c842af3113d3b5?repository_url=gke.gcr.io/library/ingress-gce-404-server-with-metrics",
+            "type": "container",
+            "name": "gke.gcr.io/ingress-gce-404-server-with-metrics:v1.16.1",
+            "purl": "pkg:oci/ingress-gce-404-server-with-metrics@sha256:183dee42ea6bca468ab1ef9a1143f46400fc7443ff59e58f17c842af3113d3b5?repository_url=gke.gcr.io/library/ingress-gce-404-server-with-metrics"
+        },
+        {
+            "bom-ref": "pkg:oci/metrics-server@sha256:1d20492ca374191e5b6ff4b7712b62b41ab75ce226424974356dc266e6e99e83?repository_url=gke.gcr.io/library/metrics-server",
+            "type": "container",
+            "name": "gke.gcr.io/metrics-server:v0.5.2-gke.3",
+            "purl": "pkg:oci/metrics-server@sha256:1d20492ca374191e5b6ff4b7712b62b41ab75ce226424974356dc266e6e99e83?repository_url=gke.gcr.io/library/metrics-server"
+        },
+        {
+            "bom-ref": "pkg:oci/addon-resizer@sha256:7314ad83deab6db447d078f55b44e8e7f412ed9ef0d8d399d9a11a9e2d323c19?repository_url=gke.gcr.io/library/addon-resizer",
+            "type": "container",
+            "name": "gke.gcr.io/addon-resizer:1.8.14-gke.3",
+            "purl": "pkg:oci/addon-resizer@sha256:7314ad83deab6db447d078f55b44e8e7f412ed9ef0d8d399d9a11a9e2d323c19?repository_url=gke.gcr.io/library/addon-resizer"
+        },
+        {
+            "bom-ref": "pkg:oci/csi-node-driver-registrar@sha256:bc39ac85d1b4de9070d512557e9c6b1ffeb4f85577fe4cf89053e686e72a51e8?repository_url=gke.gcr.io/library/csi-node-driver-registrar",
+            "type": "container",
+            "name": "gke.gcr.io/csi-node-driver-registrar:v2.5.1-gke.1",
+            "purl": "pkg:oci/csi-node-driver-registrar@sha256:bc39ac85d1b4de9070d512557e9c6b1ffeb4f85577fe4cf89053e686e72a51e8?repository_url=gke.gcr.io/library/csi-node-driver-registrar"
+        },
+        {
+            "bom-ref": "pkg:oci/gcp-compute-persistent-disk-csi-driver@sha256:b23592d15c081fa5add1432e5773f743e926bd70433d74fdf47a8e2309862a83?repository_url=gke.gcr.io/library/gcp-compute-persistent-disk-csi-driver",
+            "type": "container",
+            "name": "sha256:772dcf070be7136887846a00662385e5879f10491ee635fc61c097950d072db1",
+            "purl": "pkg:oci/gcp-compute-persistent-disk-csi-driver@sha256:b23592d15c081fa5add1432e5773f743e926bd70433d74fdf47a8e2309862a83?repository_url=gke.gcr.io/library/gcp-compute-persistent-disk-csi-driver"
         }
     ]
 }
