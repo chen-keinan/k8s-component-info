@@ -26,20 +26,28 @@ go build main.go
   "control_plane": {
     "components": [
       {
-        "name": "etcd",
-        "container": "k8s.gcr.io/etcd:3.4.13-0"
+        "bom-ref": "pkg:oci/library/sha256@05b738aa1bc6355db8a2ee8639f3631b908286e43f584a3d2ee0c472de033c28?repository_url=index.docker.io/library/library/sha256",
+        "type": "container",
+        "name": "k8s.gcr.io/etcd:3.4.13-0",
+        "purl": "pkg:oci/library/sha256@05b738aa1bc6355db8a2ee8639f3631b908286e43f584a3d2ee0c472de033c28?repository_url=index.docker.io/library/library/sha256"
       },
       {
-        "name": "kube-apiserver",
-        "container": "k8s.gcr.io/kube-apiserver:v1.21.1"
+        "bom-ref": "pkg:oci/library/sha256@18e61c783b41758dd391ab901366ec3546b26fae00eef7e223d1f94da808e02f?repository_url=index.docker.io/library/library/sha256",
+        "type": "container",
+        "name": "k8s.gcr.io/kube-apiserver:v1.21.1",
+        "purl": "pkg:oci/library/sha256@18e61c783b41758dd391ab901366ec3546b26fae00eef7e223d1f94da808e02f?repository_url=index.docker.io/library/library/sha256"
       },
       {
-        "name": "kube-controller-manager",
-        "container": "k8s.gcr.io/kube-controller-manager:v1.21.1"
+        "bom-ref": "pkg:oci/library/sha256@0c6dccae49de8003ee4fa06db04a9f13bb46cbaad03977e6baa21174f2dba2fc?repository_url=index.docker.io/library/library/sha256",
+        "type": "container",
+        "name": "k8s.gcr.io/kube-controller-manager:v1.21.1",
+        "purl": "pkg:oci/library/sha256@0c6dccae49de8003ee4fa06db04a9f13bb46cbaad03977e6baa21174f2dba2fc?repository_url=index.docker.io/library/library/sha256"
       },
       {
-        "name": "kube-scheduler",
-        "container": "k8s.gcr.io/kube-scheduler:v1.21.1"
+        "bom-ref": "pkg:oci/library/sha256@8c783dd2520887cc8e7908489ffc9f356c82436ba0411d554237a0b9632c9b87?repository_url=index.docker.io/library/library/sha256",
+        "type": "container",
+        "name": "k8s.gcr.io/kube-scheduler:v1.21.1",
+        "purl": "pkg:oci/library/sha256@8c783dd2520887cc8e7908489ffc9f356c82436ba0411d554237a0b9632c9b87?repository_url=index.docker.io/library/library/sha256"
       }
     ]
   },
@@ -51,8 +59,8 @@ go build main.go
       "container_runtime_version": "containerd://1.5.2",
       "os_image": "Ubuntu 21.04",
       "host_name": "kind-control-plane",
-      "kernel_version": "6.1.14-200.fc37.aarch64",
-      "kube_proxy_version": "6.1.14-200.fc37.aarch64",
+      "kernel_version": "6.1.18-200.fc37.aarch64",
+      "kube_proxy_version": "6.1.18-200.fc37.aarch64",
       "operating_system": "linux",
       "architecture": "arm64"
     },
@@ -63,8 +71,8 @@ go build main.go
       "container_runtime_version": "containerd://1.5.2",
       "os_image": "Ubuntu 21.04",
       "host_name": "kind-worker",
-      "kernel_version": "6.1.14-200.fc37.aarch64",
-      "kube_proxy_version": "6.1.14-200.fc37.aarch64",
+      "kernel_version": "6.1.18-200.fc37.aarch64",
+      "kube_proxy_version": "6.1.18-200.fc37.aarch64",
       "operating_system": "linux",
       "architecture": "arm64"
     },
@@ -75,44 +83,60 @@ go build main.go
       "container_runtime_version": "containerd://1.5.2",
       "os_image": "Ubuntu 21.04",
       "host_name": "kind-worker2",
-      "kernel_version": "6.1.14-200.fc37.aarch64",
-      "kube_proxy_version": "6.1.14-200.fc37.aarch64",
+      "kernel_version": "6.1.18-200.fc37.aarch64",
+      "kube_proxy_version": "6.1.18-200.fc37.aarch64",
       "operating_system": "linux",
       "architecture": "arm64"
     }
   ],
   "addons": [
     {
-      "name": "coredns",
-      "container": "k8s.gcr.io/coredns/coredns:v1.8.0"
+      "bom-ref": "pkg:oci/library/sha256@1a1f05a2cd7c2fbfa7b45b21128c8a4880c003ca482460081dc12d76bfa863e8?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "k8s.gcr.io/coredns/coredns:v1.8.0",
+      "purl": "pkg:oci/library/sha256@1a1f05a2cd7c2fbfa7b45b21128c8a4880c003ca482460081dc12d76bfa863e8?repository_url=index.docker.io/library/library/sha256"
     },
     {
-      "name": "coredns",
-      "container": "k8s.gcr.io/coredns/coredns:v1.8.0"
+      "bom-ref": "pkg:oci/library/sha256@1a1f05a2cd7c2fbfa7b45b21128c8a4880c003ca482460081dc12d76bfa863e8?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "k8s.gcr.io/coredns/coredns:v1.8.0",
+      "purl": "pkg:oci/library/sha256@1a1f05a2cd7c2fbfa7b45b21128c8a4880c003ca482460081dc12d76bfa863e8?repository_url=index.docker.io/library/library/sha256"
     },
     {
-      "name": "kindnet-cni",
-      "container": "docker.io/kindest/kindnetd:v20210326-1e038dc5"
+      "bom-ref": "pkg:oci/library/sha256@f37b7c809e5dcc2090371f933f7acb726bb1bffd5652980d2e1d7e2eff5cd301?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "docker.io/kindest/kindnetd:v20210326-1e038dc5",
+      "purl": "pkg:oci/library/sha256@f37b7c809e5dcc2090371f933f7acb726bb1bffd5652980d2e1d7e2eff5cd301?repository_url=index.docker.io/library/library/sha256"
     },
     {
-      "name": "kindnet-cni",
-      "container": "docker.io/kindest/kindnetd:v20210326-1e038dc5"
+      "bom-ref": "pkg:oci/library/sha256@f37b7c809e5dcc2090371f933f7acb726bb1bffd5652980d2e1d7e2eff5cd301?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "docker.io/kindest/kindnetd:v20210326-1e038dc5",
+      "purl": "pkg:oci/library/sha256@f37b7c809e5dcc2090371f933f7acb726bb1bffd5652980d2e1d7e2eff5cd301?repository_url=index.docker.io/library/library/sha256"
     },
     {
-      "name": "kindnet-cni",
-      "container": "docker.io/kindest/kindnetd:v20210326-1e038dc5"
+      "bom-ref": "pkg:oci/library/sha256@f37b7c809e5dcc2090371f933f7acb726bb1bffd5652980d2e1d7e2eff5cd301?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "docker.io/kindest/kindnetd:v20210326-1e038dc5",
+      "purl": "pkg:oci/library/sha256@f37b7c809e5dcc2090371f933f7acb726bb1bffd5652980d2e1d7e2eff5cd301?repository_url=index.docker.io/library/library/sha256"
     },
     {
-      "name": "kube-proxy",
-      "container": "k8s.gcr.io/kube-proxy:v1.21.1"
+      "bom-ref": "pkg:oci/library/sha256@4bbef4ca108cdc3b99fe23d487fa4fca933a62c4fc720626a3706df9cef63b21?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "k8s.gcr.io/kube-proxy:v1.21.1",
+      "purl": "pkg:oci/library/sha256@4bbef4ca108cdc3b99fe23d487fa4fca933a62c4fc720626a3706df9cef63b21?repository_url=index.docker.io/library/library/sha256"
     },
     {
-      "name": "kube-proxy",
-      "container": "k8s.gcr.io/kube-proxy:v1.21.1"
+      "bom-ref": "pkg:oci/library/sha256@4bbef4ca108cdc3b99fe23d487fa4fca933a62c4fc720626a3706df9cef63b21?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "k8s.gcr.io/kube-proxy:v1.21.1",
+      "purl": "pkg:oci/library/sha256@4bbef4ca108cdc3b99fe23d487fa4fca933a62c4fc720626a3706df9cef63b21?repository_url=index.docker.io/library/library/sha256"
     },
     {
-      "name": "kube-proxy",
-      "container": "k8s.gcr.io/kube-proxy:v1.21.1"
+      "bom-ref": "pkg:oci/library/sha256@4bbef4ca108cdc3b99fe23d487fa4fca933a62c4fc720626a3706df9cef63b21?repository_url=index.docker.io/library/library/sha256",
+      "type": "container",
+      "name": "k8s.gcr.io/kube-proxy:v1.21.1",
+      "purl": "pkg:oci/library/sha256@4bbef4ca108cdc3b99fe23d487fa4fca933a62c4fc720626a3706df9cef63b21?repository_url=index.docker.io/library/library/sha256"
     }
   ]
 }

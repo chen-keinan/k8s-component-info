@@ -30,14 +30,20 @@ type ControlPlane struct {
 }
 
 type Component struct {
-	BomRef   string    `json:"bom-ref,omitempty"`
-	Type     string    `json:"type,omitempty"`
-	Name     string    `json:"name,omitempty"`
-	Purl     string    `json:"purl,omitempty"`
-	Version  string    `json:"version,omitempty"`
-	Licenses []License `json:"licenses,omitempty"`
+	BomRef     string     `json:"bom-ref,omitempty"`
+	Type       string     `json:"type,omitempty"`
+	Name       string     `json:"name,omitempty"`
+	Purl       string     `json:"purl,omitempty"`
+	Version    string     `json:"version,omitempty"`
+	Licenses   []License  `json:"licenses,omitempty"`
+	Properties []Property `json:"properties,omitempty"`
 }
 
 type License struct {
 	Expression string `json:"expression,omitempty"`
+}
+
+type Property struct {
+	Name  string `json:"name,omitempty"`
+	Value string `json:"value,omitempty"`
 }

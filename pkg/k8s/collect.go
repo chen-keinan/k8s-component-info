@@ -93,8 +93,13 @@ func GetComponent(containerStatus corev1.ContainerStatus) (*Component, error) {
 	if err != nil {
 		return nil, err
 	}
-	repoName := imageRef.Context().RepositoryStr()
-	registryName := imageRef.Context().RegistryStr()
+	imageName, err := containerimage.ParseReference(containerStatus.Image)
+	if err != nil {
+		return nil, err
+	}
+	
+	repoName := imageName.Context().RepositoryStr()
+	registryName := imageName.Context().RegistryStr()
 
 	bomRef := fmt.Sprintf("pkg:oci/%s@%s?repository_url=%s/library/%s",
 		repoName,
