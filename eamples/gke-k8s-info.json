@@ -1,16 +1,24 @@
 {
-    "cluster_name": "gke1794",
-    "version": {
-        "major": "1",
-        "minor": "24",
-        "gitVersion": "v1.24.11-gke.1000",
-        "gitCommit": "97cc004713d759c35a13ffb59c7b30db82a86c4d",
-        "gitTreeState": "clean",
-        "buildDate": "2023-03-14T10:48:47Z",
-        "goVersion": "go1.19.6 X:boringcrypto",
-        "compiler": "gc",
-        "platform": "linux/amd64"
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+    "metadata": {
+        "timestamp": "2023-03-27 10:26:11.475124 +0300 IDT m=+0.495478626",
+        "component": {
+            "bom-ref": "kubernetes:1.24.10-gke.2300",
+            "type": "Cluster",
+            "name": "gke1796",
+            "version": "v1.24.10-gke.2300"
+        },
+        "tools": [
+            {
+                "vendor": "aquasecurity",
+                "name": "trivy",
+                "version": "0.38.1"
+            }
+        ]
     },
+    "version": 1,
     "control_plane": {
         "components": [
             {
@@ -32,21 +40,21 @@
                 "purl": "pkg:oci/gke-metrics-agent@sha256:563b772024fb6c8d485b2d1748bae636807ae8e7d7e4e2be4463fcf47282eaaa?repository_url=gke.gcr.io/library/gke-metrics-agent"
             },
             {
-                "bom-ref": "pkg:oci/library/sha256@87a0be9ace506bee61227a151a4c30a6df807632f22e47279f6224091f45b05f?repository_url=index.docker.io/library/library/sha256",
+                "bom-ref": "pkg:oci/kube-proxy-amd64@2b222296deea632ccb65cd91b3113fa993d6a3120876c1a7b1eab76f94057925?repository_url=gke.gcr.io/library/kube-proxy-amd64",
                 "type": "container",
-                "name": "gke.gcr.io/kube-proxy-amd64:v1.24.11-gke.1000",
-                "purl": "pkg:oci/library/sha256@87a0be9ace506bee61227a151a4c30a6df807632f22e47279f6224091f45b05f?repository_url=index.docker.io/library/library/sha256"
+                "name": "gke.gcr.io/kube-proxy-amd64:v1.24.10-gke.2300",
+                "purl": "pkg:oci/kube-proxy-amd64@2b222296deea632ccb65cd91b3113fa993d6a3120876c1a7b1eab76f94057925?repository_url=gke.gcr.io/library/kube-proxy-amd64"
             }
         ]
     },
     "nodes": [
         {
             "node_role": "worker",
-            "node_name": "gke-gke1794-default-pool-76f92e76-l8jb",
-            "kubelet_version": "v1.24.11-gke.1000",
-            "container_runtime_version": "containerd://1.6.18",
+            "node_name": "gke-gke1796-default-pool-768cb718-sk1d",
+            "kubelet_version": "v1.24.10-gke.2300",
+            "container_runtime_version": "containerd://1.6.9",
             "os_image": "Container-Optimized OS from Google",
-            "host_name": "gke-gke1794-default-pool-76f92e76-l8jb",
+            "host_name": "gke-gke1796-default-pool-768cb718-sk1d",
             "kernel_version": "5.10.162+",
             "kube_proxy_version": "5.10.162+",
             "operating_system": "linux",
@@ -85,10 +93,10 @@
             "purl": "pkg:oci/gke-metrics-agent@sha256:563b772024fb6c8d485b2d1748bae636807ae8e7d7e4e2be4463fcf47282eaaa?repository_url=gke.gcr.io/library/gke-metrics-agent"
         },
         {
-            "bom-ref": "pkg:oci/proxy-agent@sha256:54927d5677ff4cf4db546c201eb4ae15591fb6bc5c7563aa05dd440b35f1f400?repository_url=gke.gcr.io/library/proxy-agent",
+            "bom-ref": "pkg:oci/proxy-agent@sha256:48fa7702f17fb861707adb287810696b427de0cec76f6577dd8e571abe32328b?repository_url=gke.gcr.io/library/proxy-agent",
             "type": "container",
-            "name": "sha256:b27292ba1f8fb5f7cdb1c90c50c9ea84bf7c554749cd660198fcc04c0d66126e",
-            "purl": "pkg:oci/proxy-agent@sha256:54927d5677ff4cf4db546c201eb4ae15591fb6bc5c7563aa05dd440b35f1f400?repository_url=gke.gcr.io/library/proxy-agent"
+            "name": "gke.gcr.io/proxy-agent:v0.0.33-gke.0",
+            "purl": "pkg:oci/proxy-agent@sha256:48fa7702f17fb861707adb287810696b427de0cec76f6577dd8e571abe32328b?repository_url=gke.gcr.io/library/proxy-agent"
         },
         {
             "bom-ref": "pkg:oci/gke-release-staging/cluster-proportional-autoscaler@sha256:0f232ba18b63363e33f205d0242ef98324fb388434f8598c2fc8e967dca146bc?repository_url=asia.gcr.io/library/gke-release-staging/cluster-proportional-autoscaler",

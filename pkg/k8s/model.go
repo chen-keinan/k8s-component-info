@@ -1,15 +1,14 @@
 package k8s
 
-import (
-	"k8s.io/apimachinery/pkg/version"
-)
-
 type Cluster struct {
-	ClusterName  string        `json:"cluster_name,omitempty"`
-	Version      *version.Info `json:"version,omitempty"`
-	ControlPlane ControlPlane  `json:"control_plane,omitempty"`
-	NodesInfo    []NodeInfo    `json:"nodes,omitempty"`
-	Addons       []*Component  `json:"addons,omitempty"`
+	BomFormat    string       `json:"bomFormat,omitempty"`
+	SpecVersion  string       `json:"specVersion,omitempty"`
+	SerialNumber string       `json:"serialNumber,omitempty"`
+	Metadata     Metadata     `json:"metadata,omitempty"`
+	Version      int          `json:"version,omitempty"`
+	ControlPlane ControlPlane `json:"control_plane,omitempty"`
+	NodesInfo    []NodeInfo   `json:"nodes,omitempty"`
+	Addons       []*Component `json:"addons,omitempty"`
 }
 
 type NodeInfo struct {
@@ -46,4 +45,16 @@ type License struct {
 type Property struct {
 	Name  string `json:"name,omitempty"`
 	Value string `json:"value,omitempty"`
+}
+
+type Metadata struct {
+	Timestamp string    `json:"timestamp,omitempty"`
+	Component Component `json:"component,omitempty"`
+	Tools     []Tool    `json:"tools,omitempty"`
+}
+
+type Tool struct {
+	Vendor  string `json:"vendor,omitempty"`
+	Name    string `json:"name,omitempty"`
+	Version string `json:"version,omitempty"`
 }

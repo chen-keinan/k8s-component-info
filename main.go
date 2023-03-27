@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+	"time"
 
 	"github.com/chen-keinan/k8s-component-info/pkg/k8s"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
@@ -41,8 +43,26 @@ func main() {
 	}
 	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
 	k8sCluster := &k8s.Cluster{
-		ClusterName:  clusterName,
-		Version:      serverVersion,
+		BomFormat:    "CycloneDX",
+		SpecVersion:  "1.4",
+		SerialNumber: "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+		Version:      1,
+		Metadata: k8s.Metadata{
+			Timestamp: time.Now().String(),
+			Tools: []k8s.Tool{
+				{
+					Vendor:  "aquasecurity",
+					Name:    "trivy",
+					Version: "0.38.1",
+				},
+			},
+			Component: k8s.Component{
+				BomRef:  fmt.Sprintf("kubernetes:%s", strings.Replace(serverVersion.GitVersion, "v", "", -1)),
+				Name:    clusterName,
+				Type:    "Cluster",
+				Version: serverVersion.GitVersion,
+			},
+		},
 		ControlPlane: k8s.ControlPlane{Components: components},
 		NodesInfo:    nodesInfo,
 		Addons:       addons,

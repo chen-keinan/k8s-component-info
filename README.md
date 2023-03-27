@@ -11,18 +11,18 @@ go build main.go
 
 ```json
 {
-  "cluster_name": "kind-kind",
-  "version": {
-    "major": "1",
-    "minor": "21",
-    "gitVersion": "v1.21.1",
-    "gitCommit": "5e58841cce77d4bc13713ad2b91fa0d961e69192",
-    "gitTreeState": "clean",
-    "buildDate": "2021-05-21T23:06:30Z",
-    "goVersion": "go1.16.4",
-    "compiler": "gc",
-    "platform": "linux/arm64"
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+  "metadata": {
+    "component": {
+      "bom-ref": "kubernetes:v1.21.1",
+      "type": "Cluster",
+      "name": "kind-kind",
+      "version": "v1.21.1"
+    }
   },
+  "version": 1,
   "control_plane": {
     "components": [
       {
