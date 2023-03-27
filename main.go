@@ -42,13 +42,15 @@ func main() {
 		panic(err.Error())
 	}
 	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
+	now := time.Now()
+	ftime := now.Format(time.RFC3339)
 	k8sCluster := &k8s.Cluster{
 		BomFormat:    "CycloneDX",
 		SpecVersion:  "1.4",
 		SerialNumber: "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
 		Version:      1,
 		Metadata: k8s.Metadata{
-			Timestamp: time.Now().String(),
+			Timestamp: ftime,
 			Tools: []k8s.Tool{
 				{
 					Vendor:  "aquasecurity",

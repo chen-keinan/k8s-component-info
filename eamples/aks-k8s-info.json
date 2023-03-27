@@ -1,74 +1,114 @@
 {
-    "cluster_name": "aks5494",
-    "version": {
-        "major": "1",
-        "minor": "25",
-        "gitVersion": "v1.25.4",
-        "gitCommit": "c5ecdadb82909369302fddd24aa2445effd8112e",
-        "gitTreeState": "clean",
-        "buildDate": "2023-02-10T14:49:31Z",
-        "goVersion": "go1.19.3",
-        "compiler": "gc",
-        "platform": "linux/amd64"
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+    "metadata": {
+        "timestamp": "2023-03-27T10:41:17+03:00",
+        "component": {
+            "bom-ref": "kubernetes:1.25.4",
+            "type": "Cluster",
+            "name": "aks5509",
+            "version": "v1.25.4"
+        },
+        "tools": [
+            {
+                "vendor": "aquasecurity",
+                "name": "trivy",
+                "version": "0.38.1"
+            }
+        ]
     },
+    "version": 1,
     "control_plane": {
         "components": [
             {
-                "name": "konnectivity-agent",
-                "container": "mcr.microsoft.com/oss/kubernetes/apiserver-network-proxy/agent:v0.0.33-hotfix.20221110"
+                "bom-ref": "pkg:oci/oss/kubernetes/apiserver-network-proxy/agent@d8d8810820ff9043fe0dab5c9650a2bbc5763163206bb1720190378c463b6a27?repository_url=mcr.microsoft.com/library/oss/kubernetes/apiserver-network-proxy/agent",
+                "type": "container",
+                "name": "mcr.microsoft.com/oss/kubernetes/apiserver-network-proxy/agent:v0.0.33-hotfix.20221110",
+                "purl": "pkg:oci/oss/kubernetes/apiserver-network-proxy/agent@d8d8810820ff9043fe0dab5c9650a2bbc5763163206bb1720190378c463b6a27?repository_url=mcr.microsoft.com/library/oss/kubernetes/apiserver-network-proxy/agent"
             },
             {
-                "name": "konnectivity-agent",
-                "container": "mcr.microsoft.com/oss/kubernetes/apiserver-network-proxy/agent:v0.0.33-hotfix.20221110"
+                "bom-ref": "pkg:oci/oss/kubernetes/apiserver-network-proxy/agent@d8d8810820ff9043fe0dab5c9650a2bbc5763163206bb1720190378c463b6a27?repository_url=mcr.microsoft.com/library/oss/kubernetes/apiserver-network-proxy/agent",
+                "type": "container",
+                "name": "mcr.microsoft.com/oss/kubernetes/apiserver-network-proxy/agent:v0.0.33-hotfix.20221110",
+                "purl": "pkg:oci/oss/kubernetes/apiserver-network-proxy/agent@d8d8810820ff9043fe0dab5c9650a2bbc5763163206bb1720190378c463b6a27?repository_url=mcr.microsoft.com/library/oss/kubernetes/apiserver-network-proxy/agent"
             },
             {
-                "name": "kube-proxy",
-                "container": "mcr.microsoft.com/oss/kubernetes/kube-proxy:v1.25.4-hotfix.20221216"
+                "bom-ref": "pkg:oci/oss/kubernetes/kube-proxy@2de0bfa6e866b878e2783c4ca7673d4ba900461111868893282c8ae47d51a9e4?repository_url=mcr.microsoft.com/library/oss/kubernetes/kube-proxy",
+                "type": "container",
+                "name": "mcr.microsoft.com/oss/kubernetes/kube-proxy:v1.25.4-hotfix.20221216",
+                "purl": "pkg:oci/oss/kubernetes/kube-proxy@2de0bfa6e866b878e2783c4ca7673d4ba900461111868893282c8ae47d51a9e4?repository_url=mcr.microsoft.com/library/oss/kubernetes/kube-proxy"
             }
         ]
     },
     "nodes": [
         {
             "node_role": "worker",
-            "node_name": "aks-default-09549753-vmss000000",
+            "node_name": "aks-default-23814474-vmss000000",
             "kubelet_version": "v1.25.4",
-            "container_runtime_version": "containerd://1.6.17+azure-1",
-            "os_image": "Ubuntu 22.04.1 LTS",
-            "host_name": "aks-default-09549753-vmss000000",
-            "kernel_version": "5.15.0-1033-azure",
-            "kube_proxy_version": "5.15.0-1033-azure",
+            "container_runtime_version": "containerd://1.6.18+azure-1",
+            "os_image": "Ubuntu 22.04.2 LTS",
+            "host_name": "aks-default-23814474-vmss000000",
+            "kernel_version": "5.15.0-1034-azure",
+            "kube_proxy_version": "5.15.0-1034-azure",
             "operating_system": "linux",
             "architecture": "amd64"
         }
     ],
     "addons": [
         {
-            "name": "azure-ip-masq-agent",
-            "container": "mcr.microsoft.com/aks/ip-masq-agent-v2:v0.1.5"
+            "bom-ref": "pkg:oci/aks/ip-masq-agent-v2@d158d28bd5dfc7e7297b7790a75b89c5cbd31aabb9fbf8e4f5e3feec206ea09e?repository_url=mcr.microsoft.com/library/aks/ip-masq-agent-v2",
+            "type": "container",
+            "name": "mcr.microsoft.com/aks/ip-masq-agent-v2:v0.1.5",
+            "purl": "pkg:oci/aks/ip-masq-agent-v2@d158d28bd5dfc7e7297b7790a75b89c5cbd31aabb9fbf8e4f5e3feec206ea09e?repository_url=mcr.microsoft.com/library/aks/ip-masq-agent-v2"
         },
         {
-            "name": "cloud-node-manager",
-            "container": "mcr.microsoft.com/oss/kubernetes/azure-cloud-node-manager:v1.25.5"
+            "bom-ref": "pkg:oci/oss/kubernetes/azure-cloud-node-manager@180d435395d9cbd5ff66dd1e0beffce09c6313688def294dae619664a3c7f731?repository_url=mcr.microsoft.com/library/oss/kubernetes/azure-cloud-node-manager",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/azure-cloud-node-manager:v1.25.5",
+            "purl": "pkg:oci/oss/kubernetes/azure-cloud-node-manager@180d435395d9cbd5ff66dd1e0beffce09c6313688def294dae619664a3c7f731?repository_url=mcr.microsoft.com/library/oss/kubernetes/azure-cloud-node-manager"
         },
         {
-            "name": "coredns",
-            "container": "mcr.microsoft.com/oss/kubernetes/coredns:v1.9.3"
+            "bom-ref": "pkg:oci/oss/kubernetes/coredns@c38f956b642366c8eeb0babfda6b0bb2aa92f27a968589804cadb445f6df72d6?repository_url=mcr.microsoft.com/library/oss/kubernetes/coredns",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/coredns:v1.9.3",
+            "purl": "pkg:oci/oss/kubernetes/coredns@c38f956b642366c8eeb0babfda6b0bb2aa92f27a968589804cadb445f6df72d6?repository_url=mcr.microsoft.com/library/oss/kubernetes/coredns"
         },
         {
-            "name": "coredns",
-            "container": "mcr.microsoft.com/oss/kubernetes/coredns:v1.9.3"
+            "bom-ref": "pkg:oci/oss/kubernetes/coredns@c38f956b642366c8eeb0babfda6b0bb2aa92f27a968589804cadb445f6df72d6?repository_url=mcr.microsoft.com/library/oss/kubernetes/coredns",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/coredns:v1.9.3",
+            "purl": "pkg:oci/oss/kubernetes/coredns@c38f956b642366c8eeb0babfda6b0bb2aa92f27a968589804cadb445f6df72d6?repository_url=mcr.microsoft.com/library/oss/kubernetes/coredns"
         },
         {
-            "name": "autoscaler",
-            "container": "mcr.microsoft.com/oss/kubernetes/autoscaler/cluster-proportional-autoscaler:1.8.5"
+            "bom-ref": "pkg:oci/oss/kubernetes/autoscaler/cluster-proportional-autoscaler@67f622f206c864b3e5404c451ffc3febae94ed781fbd0d3c77369963e42244f9?repository_url=mcr.microsoft.com/library/oss/kubernetes/autoscaler/cluster-proportional-autoscaler",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/autoscaler/cluster-proportional-autoscaler:1.8.5",
+            "purl": "pkg:oci/oss/kubernetes/autoscaler/cluster-proportional-autoscaler@67f622f206c864b3e5404c451ffc3febae94ed781fbd0d3c77369963e42244f9?repository_url=mcr.microsoft.com/library/oss/kubernetes/autoscaler/cluster-proportional-autoscaler"
         },
         {
-            "name": "metrics-server-vpa",
-            "container": "mcr.microsoft.com/oss/kubernetes/autoscaler/addon-resizer:1.8.14"
+            "bom-ref": "pkg:oci/oss/kubernetes/metrics-server@5311ea51de1d7633565e293e1cec6b1c3c21ea3205aff7c328850315b6342073?repository_url=mcr.microsoft.com/library/oss/kubernetes/metrics-server",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/metrics-server:v0.6.1",
+            "purl": "pkg:oci/oss/kubernetes/metrics-server@5311ea51de1d7633565e293e1cec6b1c3c21ea3205aff7c328850315b6342073?repository_url=mcr.microsoft.com/library/oss/kubernetes/metrics-server"
         },
         {
-            "name": "metrics-server-vpa",
-            "container": "mcr.microsoft.com/oss/kubernetes/autoscaler/addon-resizer:1.8.14"
+            "bom-ref": "pkg:oci/oss/kubernetes/autoscaler/addon-resizer@3d8aa740cf76c12c2ed527e240eeaf3dc447af2eea7445059e0957df56980d28?repository_url=mcr.microsoft.com/library/oss/kubernetes/autoscaler/addon-resizer",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/autoscaler/addon-resizer:1.8.14",
+            "purl": "pkg:oci/oss/kubernetes/autoscaler/addon-resizer@3d8aa740cf76c12c2ed527e240eeaf3dc447af2eea7445059e0957df56980d28?repository_url=mcr.microsoft.com/library/oss/kubernetes/autoscaler/addon-resizer"
+        },
+        {
+            "bom-ref": "pkg:oci/oss/kubernetes/metrics-server@5311ea51de1d7633565e293e1cec6b1c3c21ea3205aff7c328850315b6342073?repository_url=mcr.microsoft.com/library/oss/kubernetes/metrics-server",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/metrics-server:v0.6.1",
+            "purl": "pkg:oci/oss/kubernetes/metrics-server@5311ea51de1d7633565e293e1cec6b1c3c21ea3205aff7c328850315b6342073?repository_url=mcr.microsoft.com/library/oss/kubernetes/metrics-server"
+        },
+        {
+            "bom-ref": "pkg:oci/oss/kubernetes/autoscaler/addon-resizer@3d8aa740cf76c12c2ed527e240eeaf3dc447af2eea7445059e0957df56980d28?repository_url=mcr.microsoft.com/library/oss/kubernetes/autoscaler/addon-resizer",
+            "type": "container",
+            "name": "mcr.microsoft.com/oss/kubernetes/autoscaler/addon-resizer:1.8.14",
+            "purl": "pkg:oci/oss/kubernetes/autoscaler/addon-resizer@3d8aa740cf76c12c2ed527e240eeaf3dc447af2eea7445059e0957df56980d28?repository_url=mcr.microsoft.com/library/oss/kubernetes/autoscaler/addon-resizer"
         }
     ]
 }
