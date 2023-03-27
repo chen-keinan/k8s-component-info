@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-
+	// test comment
 	cf := genericclioptions.NewConfigFlags(true)
 	rest.SetDefaultWarningHandler(rest.NoWarnings{})
 	clientConfig := cf.ToRawKubeConfigLoader()
