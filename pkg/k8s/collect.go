@@ -48,7 +48,7 @@ func CollectNodes(clientset *kubernetes.Clientset) []NodeInfo {
 
 func CollectCoreComponents(clientset *kubernetes.Clientset) []*Component {
 	labelSelector := "component"
-	pods := GetPodsInfo(clientset, labelSelector)
+	pods := GetPodsInfo(clientset, labelSelector, k8sComponentNamespace)
 	components := make([]*Component, 0)
 
 	for _, pod := range pods.Items {
@@ -66,7 +66,7 @@ func CollectCoreComponents(clientset *kubernetes.Clientset) []*Component {
 
 func CollectAddons(clientset *kubernetes.Clientset) []*Component {
 	labelSelector := "k8s-app"
-	pods := GetPodsInfo(clientset, labelSelector)
+	pods := GetPodsInfo(clientset, labelSelector, k8sComponentNamespace)
 	addons := make([]*Component, 0)
 	for _, pod := range pods.Items {
 		for _, s := range pod.Status.ContainerStatuses {
@@ -80,8 +80,8 @@ func CollectAddons(clientset *kubernetes.Clientset) []*Component {
 	return addons
 }
 
-func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string) *corev1.PodList {
-	pods, err := clientset.CoreV1().Pods(k8sComponentNamespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
+func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string, namespace string) *corev1.PodList {
+	pods, err := clientset.CoreV1().Pods(namespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
 	if err != nil {
 		panic(err.Error())
 	}
@@ -112,10 +112,11 @@ func GetComponent(containerStatus corev1.ContainerStatus) (*Component, error) {
 		registryName,
 		repoName)
 	return &Component{
-		Type:   containerType,
-		Name:   containerStatus.Image,
-		BomRef: bomRef,
-		Purl:   bomRef,
+		Type:        containerType,
+		NameVersion: containerStatus.Image,
+		Name:        containerStatus.Name,
+		BomRef:      bomRef,
+		Purl:        bomRef,
 	}, nil
 }
 
@@ -123,11 +124,36 @@ func GetDependencies(ref string, components []*Component) []Dependency {
 	dependencies := make([]Dependency, 0)
 	dependsOn := make([]string, 0)
 	for _, c := range components {
-		dependsOn = append(dependsOn, fmt.Sprintf("pkg:%s/%s", c.Type, strings.Replace(c.Name, ":", "@", -1)))
+		dependsOn = append(dependsOn, fmt.Sprintf("pkg:%s/%s", c.Type, strings.Replace(c.NameVersion, ":", "@", -1)))
 	}
 	dependencies = append(dependencies, Dependency{
 		Ref:       ref,
 		DependsOn: dependsOn,
 	})
 	return dependencies
+}
+
+func CollectOpenShiftComponents(clientset *kubernetes.Clientset) []*Component {
+	namespaceLabel := map[string]string{
+		"openshift-kube-apiserver":          "apiserver",
+		"openshift-kube-controller-manager": "kube-controller-manager",
+		"openshift-kube-scheduler":          "scheduler",
+		"openshift-etcd":                    "etcd",
+	}
+	components := make([]*Component, 0)
+	for namespace, labelSelector := range namespaceLabel {
+		pods := GetPodsInfo(clientset, labelSelector, namespace)
+
+		for _, pod := range pods.Items {
+			for _, s := range pod.Status.ContainerStatuses {
+				c, err := GetComponent(s)
+				if err != nil {
+					continue
+				}
+				components = append(components, c)
+			}
+
+		}
+	}
+	return components
 }

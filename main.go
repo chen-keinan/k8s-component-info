@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 )
 
 func main() {
-	// test comment
+
 	cf := genericclioptions.NewConfigFlags(true)
 	rest.SetDefaultWarningHandler(rest.NoWarnings{})
 	clientConfig := cf.ToRawKubeConfigLoader()
@@ -30,8 +31,14 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	// collect core components
-	components := k8s.CollectCoreComponents(clientset)
+	var components []*k8s.Component
+	args := os.Args
+	if len(args) > 1 && args[1] == "ocp" {
+		components = k8s.CollectOpenShiftComponents(clientset)
+	} else {
+		// collect core components
+		components = k8s.CollectCoreComponents(clientset)
+	}
 	// collect nodes info
 	nodesInfo := k8s.CollectNodes(clientset)
 	// collect addons info

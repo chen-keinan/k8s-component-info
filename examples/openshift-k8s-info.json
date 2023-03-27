@@ -1,0 +1,452 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+    "metadata": {
+        "timestamp": "2023-03-27T15:16:56+03:00",
+        "component": {
+            "bom-ref": "kubernetes:1.22.15+c763d11",
+            "type": "Cluster",
+            "name": "ocp49vpool9530",
+            "version": "v1.22.15+c763d11"
+        },
+        "tools": [
+            {
+                "vendor": "aquasecurity",
+                "name": "trivy",
+                "version": "0.38.1"
+            }
+        ]
+    },
+    "version": 1,
+    "control_plane": { 
+        "components": [
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "cluster-policy-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager-recovery-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "cluster-policy-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager-recovery-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "cluster-policy-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-controller-manager-recovery-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler-recovery-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler-recovery-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-scheduler-recovery-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-health-monitor",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-metrics",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-readyz",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcdctl",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-health-monitor",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-metrics",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-readyz",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcdctl",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-health-monitor",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-metrics",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcd-readyz",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "etcdctl",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-cert-regeneration-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-check-endpoints",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-insecure-readyz",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-cert-regeneration-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-check-endpoints",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-insecure-readyz",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-cert-regeneration-controller",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-cert-syncer",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-check-endpoints",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            },
+            {
+                "bom-ref": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev",
+                "type": "container",
+                "name": "kube-apiserver-insecure-readyz",
+                "purl": "pkg:oci/openshift-release-dev/ocp-v4.0-art-dev@sha256:87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48?repository_url=quay.io/library/openshift-release-dev/ocp-v4.0-art-dev"
+            }
+        ]
+    },
+    "nodes": [
+        {
+            "node_role": "master",
+            "node_name": "ocp49vpool9530-bg89v-master-0",
+            "kubelet_version": "v1.22.15+c763d11",
+            "container_runtime_version": "cri-o://1.22.5-16.rhaos4.9.git88e9cdc.el8",
+            "os_image": "Red Hat Enterprise Linux CoreOS 49.84.202302111038-0 (Ootpa)",
+            "host_name": "ocp49vpool9530-bg89v-master-0",
+            "kernel_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "kube_proxy_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        },
+        {
+            "node_role": "master",
+            "node_name": "ocp49vpool9530-bg89v-master-1",
+            "kubelet_version": "v1.22.15+c763d11",
+            "container_runtime_version": "cri-o://1.22.5-16.rhaos4.9.git88e9cdc.el8",
+            "os_image": "Red Hat Enterprise Linux CoreOS 49.84.202302111038-0 (Ootpa)",
+            "host_name": "ocp49vpool9530-bg89v-master-1",
+            "kernel_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "kube_proxy_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        },
+        {
+            "node_role": "master",
+            "node_name": "ocp49vpool9530-bg89v-master-2",
+            "kubelet_version": "v1.22.15+c763d11",
+            "container_runtime_version": "cri-o://1.22.5-16.rhaos4.9.git88e9cdc.el8",
+            "os_image": "Red Hat Enterprise Linux CoreOS 49.84.202302111038-0 (Ootpa)",
+            "host_name": "ocp49vpool9530-bg89v-master-2",
+            "kernel_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "kube_proxy_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        },
+        {
+            "node_role": "worker",
+            "node_name": "ocp49vpool9530-bg89v-worker-8745j",
+            "kubelet_version": "v1.22.15+c763d11",
+            "container_runtime_version": "cri-o://1.22.5-16.rhaos4.9.git88e9cdc.el8",
+            "os_image": "Red Hat Enterprise Linux CoreOS 49.84.202302111038-0 (Ootpa)",
+            "host_name": "ocp49vpool9530-bg89v-worker-8745j",
+            "kernel_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "kube_proxy_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        },
+        {
+            "node_role": "worker",
+            "node_name": "ocp49vpool9530-bg89v-worker-9brw5",
+            "kubelet_version": "v1.22.15+c763d11",
+            "container_runtime_version": "cri-o://1.22.5-16.rhaos4.9.git88e9cdc.el8",
+            "os_image": "Red Hat Enterprise Linux CoreOS 49.84.202302111038-0 (Ootpa)",
+            "host_name": "ocp49vpool9530-bg89v-worker-9brw5",
+            "kernel_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "kube_proxy_version": "4.18.0-305.76.1.el8_4.x86_64",
+            "operating_system": "linux",
+            "architecture": "amd64"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "ocp49vpool9530",
+            "dependsOn": [
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@ba58de9486d05c9dcf1853d5e6e3deb76401d28532c6f9ecf826f7c55451c20c",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@1290abdf4c511f0e64d5f96a7f1e926cfecc87145cfd8914672aad04a2b44338",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@12ec0dae8ad1866424b37b46f473f71cf2393f839ac3da2b50eead97e65bcdb8",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@6614de75f0c6285fd53895661c4c00c5d2cd0c54f4c76809ae0cc47c233a4dba",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@4f4d553485ac3cda140ac7bbc3b4fdb940564421d0713ab2c0466eaa8ca85748",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@8a6ed0b8401c35d3b8a006b43c530d3ad5953c62a5619eaa5d40f09e49f99151",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48",
+                "pkg:container/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256@87651ee57165a4413cde5e965246fb9d5abed0ed50cdcaa187abc7a5cb025e48"
+            ]
+        }
+    ]
+}
