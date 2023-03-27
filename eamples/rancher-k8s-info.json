@@ -1,56 +1,78 @@
 {
-    "cluster_name": "default",
-    "version": {
-        "major": "1",
-        "minor": "24",
-        "gitVersion": "v1.24.11+rke2r1",
-        "gitCommit": "0f75679e3346160939924550fd3591462a4afec6",
-        "gitTreeState": "clean",
-        "buildDate": "2023-02-28T20:43:36Z",
-        "goVersion": "go1.19.6 X:boringcrypto",
-        "compiler": "gc",
-        "platform": "linux/amd64"
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
+    "metadata": {
+        "timestamp": "2023-03-27T10:59:30+03:00",
+        "component": {
+            "bom-ref": "kubernetes:1.24.11+rke2r1",
+            "type": "Cluster",
+            "name": "default",
+            "version": "v1.24.11+rke2r1"
+        },
+        "tools": [
+            {
+                "vendor": "aquasecurity",
+                "name": "trivy",
+                "version": "0.38.1"
+            }
+        ]
     },
+    "version": 1,
     "control_plane": {
         "components": [
             {
-                "name": "cloud-controller-manager",
-                "container": "index.docker.io/rancher/rke2-cloud-provider:v1.26.1-build20230210"
+                "bom-ref": "pkg:oci/rancher/rke2-cloud-provider@sha256:9d54d0e0c6ffa36854255d18347fb85b1a34aee0a82d17182ec11b0d704892de?repository_url=index.docker.io/library/rancher/rke2-cloud-provider",
+                "type": "container",
+                "name": "docker.io/rancher/rke2-cloud-provider:v1.26.1-build20230210",
+                "purl": "pkg:oci/rancher/rke2-cloud-provider@sha256:9d54d0e0c6ffa36854255d18347fb85b1a34aee0a82d17182ec11b0d704892de?repository_url=index.docker.io/library/rancher/rke2-cloud-provider"
             },
             {
-                "name": "etcd",
-                "container": "index.docker.io/rancher/hardened-etcd:v3.5.4-k3s1-build20221011"
+                "bom-ref": "pkg:oci/rancher/hardened-etcd@sha256:abb0674e4f1462153f3542ea90c0272988e024d304fe9e1f3267643d744caaab?repository_url=index.docker.io/library/rancher/hardened-etcd",
+                "type": "container",
+                "name": "docker.io/rancher/hardened-etcd:v3.5.4-k3s1-build20221011",
+                "purl": "pkg:oci/rancher/hardened-etcd@sha256:abb0674e4f1462153f3542ea90c0272988e024d304fe9e1f3267643d744caaab?repository_url=index.docker.io/library/rancher/hardened-etcd"
             },
             {
-                "name": "kube-apiserver",
-                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+                "bom-ref": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes",
+                "type": "container",
+                "name": "docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228",
+                "purl": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes"
             },
             {
-                "name": "kube-controller-manager",
-                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+                "bom-ref": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes",
+                "type": "container",
+                "name": "docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228",
+                "purl": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes"
             },
             {
-                "name": "kube-proxy",
-                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+                "bom-ref": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes",
+                "type": "container",
+                "name": "docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228",
+                "purl": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes"
             },
             {
-                "name": "kube-proxy",
-                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+                "bom-ref": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes",
+                "type": "container",
+                "name": "docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228",
+                "purl": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes"
             },
             {
-                "name": "kube-scheduler",
-                "container": "index.docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228"
+                "bom-ref": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes",
+                "type": "container",
+                "name": "docker.io/rancher/hardened-kubernetes:v1.24.11-rke2r1-build20230228",
+                "purl": "pkg:oci/rancher/hardened-kubernetes@sha256:1ac2854d76433bb894cc639fb28ce67c53da3a268384d6b353130dc9102425e9?repository_url=index.docker.io/library/rancher/hardened-kubernetes"
             }
         ]
     },
     "nodes": [
         {
             "node_role": "master",
-            "node_name": "ip-10-0-1-133",
+            "node_name": "ip-10-0-5-23",
             "kubelet_version": "v1.24.11+rke2r1",
             "container_runtime_version": "containerd://1.6.15-k3s1",
             "os_image": "Ubuntu 22.04 LTS",
-            "host_name": "ip-10-0-1-133",
+            "host_name": "ip-10-0-5-23",
             "kernel_version": "5.15.0-1015-aws",
             "kube_proxy_version": "5.15.0-1015-aws",
             "operating_system": "linux",
@@ -58,11 +80,11 @@
         },
         {
             "node_role": "worker",
-            "node_name": "ip-10-0-1-243",
+            "node_name": "ip-10-0-5-77",
             "kubelet_version": "v1.24.11+rke2r1",
             "container_runtime_version": "containerd://1.6.15-k3s1",
             "os_image": "Ubuntu 22.04 LTS",
-            "host_name": "ip-10-0-1-243",
+            "host_name": "ip-10-0-5-77",
             "kernel_version": "5.15.0-1015-aws",
             "kube_proxy_version": "5.15.0-1015-aws",
             "operating_system": "linux",
@@ -71,24 +93,46 @@
     ],
     "addons": [
         {
-            "name": "calico-node",
-            "container": "rancher/hardened-calico:v3.25.0-build20230209"
+            "bom-ref": "pkg:oci/rancher/hardened-calico@sha256:3812b192d4b82c9d426b356ca40886be7c5e27caf628b8541dd1378b6081422b?repository_url=index.docker.io/library/rancher/hardened-calico",
+            "type": "container",
+            "name": "docker.io/rancher/hardened-calico:v3.25.0-build20230209",
+            "purl": "pkg:oci/rancher/hardened-calico@sha256:3812b192d4b82c9d426b356ca40886be7c5e27caf628b8541dd1378b6081422b?repository_url=index.docker.io/library/rancher/hardened-calico"
         },
         {
-            "name": "calico-node",
-            "container": "rancher/hardened-calico:v3.25.0-build20230209"
+            "bom-ref": "pkg:oci/rancher/hardened-flannel@sha256:c3c05ac7fa7bc81b18bf77cdda33a7e300516743be9bcf93c0b0c0f722efd4de?repository_url=index.docker.io/library/rancher/hardened-flannel",
+            "type": "container",
+            "name": "docker.io/rancher/hardened-flannel:v0.21.1-build20230208",
+            "purl": "pkg:oci/rancher/hardened-flannel@sha256:c3c05ac7fa7bc81b18bf77cdda33a7e300516743be9bcf93c0b0c0f722efd4de?repository_url=index.docker.io/library/rancher/hardened-flannel"
         },
         {
-            "name": "coredns",
-            "container": "rancher/hardened-coredns:v1.9.3-build20221011"
+            "bom-ref": "pkg:oci/rancher/hardened-calico@sha256:3812b192d4b82c9d426b356ca40886be7c5e27caf628b8541dd1378b6081422b?repository_url=index.docker.io/library/rancher/hardened-calico",
+            "type": "container",
+            "name": "docker.io/rancher/hardened-calico:v3.25.0-build20230209",
+            "purl": "pkg:oci/rancher/hardened-calico@sha256:3812b192d4b82c9d426b356ca40886be7c5e27caf628b8541dd1378b6081422b?repository_url=index.docker.io/library/rancher/hardened-calico"
         },
         {
-            "name": "coredns",
-            "container": "rancher/hardened-coredns:v1.9.3-build20221011"
+            "bom-ref": "pkg:oci/rancher/hardened-flannel@sha256:c3c05ac7fa7bc81b18bf77cdda33a7e300516743be9bcf93c0b0c0f722efd4de?repository_url=index.docker.io/library/rancher/hardened-flannel",
+            "type": "container",
+            "name": "docker.io/rancher/hardened-flannel:v0.21.1-build20230208",
+            "purl": "pkg:oci/rancher/hardened-flannel@sha256:c3c05ac7fa7bc81b18bf77cdda33a7e300516743be9bcf93c0b0c0f722efd4de?repository_url=index.docker.io/library/rancher/hardened-flannel"
         },
         {
-            "name": "autoscaler",
-            "container": "rancher/hardened-cluster-autoscaler:v1.8.5-build20221011"
+            "bom-ref": "pkg:oci/rancher/hardened-coredns@sha256:3020505d755499eb8d22f631aa88fc597b4849eae18404401087669a6bc5ca06?repository_url=index.docker.io/library/rancher/hardened-coredns",
+            "type": "container",
+            "name": "docker.io/rancher/hardened-coredns:v1.9.3-build20221011",
+            "purl": "pkg:oci/rancher/hardened-coredns@sha256:3020505d755499eb8d22f631aa88fc597b4849eae18404401087669a6bc5ca06?repository_url=index.docker.io/library/rancher/hardened-coredns"
+        },
+        {
+            "bom-ref": "pkg:oci/rancher/hardened-coredns@sha256:3020505d755499eb8d22f631aa88fc597b4849eae18404401087669a6bc5ca06?repository_url=index.docker.io/library/rancher/hardened-coredns",
+            "type": "container",
+            "name": "docker.io/rancher/hardened-coredns:v1.9.3-build20221011",
+            "purl": "pkg:oci/rancher/hardened-coredns@sha256:3020505d755499eb8d22f631aa88fc597b4849eae18404401087669a6bc5ca06?repository_url=index.docker.io/library/rancher/hardened-coredns"
+        },
+        {
+            "bom-ref": "pkg:oci/rancher/hardened-cluster-autoscaler@sha256:18cf5a3f1c2c7df073b310016b1ac28e8e543afb5cffe91da6bc33176f0fb9f8?repository_url=index.docker.io/library/rancher/hardened-cluster-autoscaler",
+            "type": "container",
+            "name": "docker.io/rancher/hardened-cluster-autoscaler:v1.8.5-build20221011",
+            "purl": "pkg:oci/rancher/hardened-cluster-autoscaler@sha256:18cf5a3f1c2c7df073b310016b1ac28e8e543afb5cffe91da6bc33176f0fb9f8?repository_url=index.docker.io/library/rancher/hardened-cluster-autoscaler"
         }
     ]
 }
