@@ -118,3 +118,16 @@ func GetComponent(containerStatus corev1.ContainerStatus) (*Component, error) {
 		Purl:   bomRef,
 	}, nil
 }
+
+func GetDependencies(ref string, components []*Component) []Dependency {
+	dependencies := make([]Dependency, 0)
+	dependsOn := make([]string, 0)
+	for _, c := range components {
+		dependsOn = append(dependsOn, fmt.Sprintf("pkg:%s/%s", c.Type, strings.Replace(c.Name, ":", "@", -1)))
+	}
+	dependencies = append(dependencies, Dependency{
+		Ref:       ref,
+		DependsOn: dependsOn,
+	})
+	return dependencies
+}

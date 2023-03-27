@@ -36,12 +36,15 @@ func main() {
 	nodesInfo := k8s.CollectNodes(clientset)
 	// collect addons info
 	addons := k8s.CollectAddons(clientset)
-
 	rawCfg, err := clientConfig.RawConfig()
 	if err != nil {
 		panic(err.Error())
 	}
+	depComponents := make([]*k8s.Component, 0)
+	depComponents = append(depComponents, components...)
+	depComponents = append(depComponents, addons...)
 	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
+	dependencies := k8s.GetDependencies(clusterName, depComponents)
 	now := time.Now()
 	ftime := now.Format(time.RFC3339)
 	k8sCluster := &k8s.Cluster{
@@ -68,6 +71,7 @@ func main() {
 		ControlPlane: k8s.ControlPlane{Components: components},
 		NodesInfo:    nodesInfo,
 		Addons:       addons,
+		Dependencies: dependencies,
 	}
 	b, err := json.Marshal(k8sCluster)
 	if err != nil {

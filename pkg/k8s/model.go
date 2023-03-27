@@ -9,6 +9,7 @@ type Cluster struct {
 	ControlPlane ControlPlane `json:"control_plane,omitempty"`
 	NodesInfo    []NodeInfo   `json:"nodes,omitempty"`
 	Addons       []*Component `json:"addons,omitempty"`
+	Dependencies []Dependency `json:"dependencies,omitempty"`
 }
 
 type NodeInfo struct {
@@ -57,4 +58,9 @@ type Tool struct {
 	Vendor  string `json:"vendor,omitempty"`
 	Name    string `json:"name,omitempty"`
 	Version string `json:"version,omitempty"`
+}
+
+type Dependency struct {
+	Ref       string   `json:"ref,omitempty"`
+	DependsOn []string `json:"dependsOn,omitempty"`
 }

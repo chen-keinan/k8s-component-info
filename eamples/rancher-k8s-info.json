@@ -3,7 +3,7 @@
     "specVersion": "1.4",
     "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
     "metadata": {
-        "timestamp": "2023-03-27T10:59:30+03:00",
+        "timestamp": "2023-03-27T11:41:13+03:00",
         "component": {
             "bom-ref": "kubernetes:1.24.11+rke2r1",
             "type": "Cluster",
@@ -133,6 +133,27 @@
             "type": "container",
             "name": "docker.io/rancher/hardened-cluster-autoscaler:v1.8.5-build20221011",
             "purl": "pkg:oci/rancher/hardened-cluster-autoscaler@sha256:18cf5a3f1c2c7df073b310016b1ac28e8e543afb5cffe91da6bc33176f0fb9f8?repository_url=index.docker.io/library/rancher/hardened-cluster-autoscaler"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "default",
+            "dependsOn": [
+                "pkg:container/docker.io/rancher/rke2-cloud-provider@v1.26.1-build20230210",
+                "pkg:container/docker.io/rancher/hardened-etcd@v3.5.4-k3s1-build20221011",
+                "pkg:container/docker.io/rancher/hardened-kubernetes@v1.24.11-rke2r1-build20230228",
+                "pkg:container/docker.io/rancher/hardened-kubernetes@v1.24.11-rke2r1-build20230228",
+                "pkg:container/docker.io/rancher/hardened-kubernetes@v1.24.11-rke2r1-build20230228",
+                "pkg:container/docker.io/rancher/hardened-kubernetes@v1.24.11-rke2r1-build20230228",
+                "pkg:container/docker.io/rancher/hardened-kubernetes@v1.24.11-rke2r1-build20230228",
+                "pkg:container/docker.io/rancher/hardened-calico@v3.25.0-build20230209",
+                "pkg:container/docker.io/rancher/hardened-flannel@v0.21.1-build20230208",
+                "pkg:container/docker.io/rancher/hardened-calico@v3.25.0-build20230209",
+                "pkg:container/docker.io/rancher/hardened-flannel@v0.21.1-build20230208",
+                "pkg:container/docker.io/rancher/hardened-coredns@v1.9.3-build20221011",
+                "pkg:container/docker.io/rancher/hardened-coredns@v1.9.3-build20221011",
+                "pkg:container/docker.io/rancher/hardened-cluster-autoscaler@v1.8.5-build20221011"
+            ]
         }
     ]
 }
