@@ -1,20 +1,15 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
-	"strings"
-	"time"
-
+	cdx "github.com/CycloneDX/cyclonedx-go"
 	"github.com/chen-keinan/k8s-component-info/pkg/k8s"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
+	"os"
 )
 
 func main() {
-
 	cf := genericclioptions.NewConfigFlags(true)
 	rest.SetDefaultWarningHandler(rest.NoWarnings{})
 	clientConfig := cf.ToRawKubeConfigLoader()
@@ -31,7 +26,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	var components []*k8s.Component
+	var components []cdx.Component
 	args := os.Args
 	if len(args) > 1 && args[1] == "ocp" {
 		components = k8s.CollectOpenShiftComponents(clientset)
@@ -47,42 +42,25 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	depComponents := make([]*k8s.Component, 0)
+	depComponents := make([]cdx.Component, 0)
 	depComponents = append(depComponents, components...)
 	depComponents = append(depComponents, addons...)
 	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
-	dependencies := k8s.GetDependencies(clusterName, depComponents)
-	now := time.Now()
-	ftime := now.Format(time.RFC3339)
-	k8sCluster := &k8s.Cluster{
-		BomFormat:    "CycloneDX",
-		SpecVersion:  "1.4",
-		SerialNumber: "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
-		Version:      1,
-		Metadata: k8s.Metadata{
-			Timestamp: ftime,
-			Tools: []k8s.Tool{
-				{
-					Vendor:  "aquasecurity",
-					Name:    "trivy",
-					Version: "0.38.1",
-				},
-			},
-			Component: k8s.Component{
-				BomRef:  fmt.Sprintf("kubernetes:%s", strings.Replace(serverVersion.GitVersion, "v", "", -1)),
-				Name:    clusterName,
-				Type:    "Cluster",
-				Version: serverVersion.GitVersion,
-			},
-		},
-		ControlPlane: k8s.ControlPlane{Components: components},
-		NodesInfo:    nodesInfo,
-		Addons:       addons,
-		Dependencies: dependencies,
-	}
-	b, err := json.Marshal(k8sCluster)
+	metadata := k8s.GetSbomMetadata(clusterName, serverVersion)
+	dependencies := k8s.GetSbomDependency(metadata.Component.BOMRef, depComponents)
+	nodeComponent, nodeDepndencies := k8s.GettNodeComponentAndDependency(nodesInfo)
+	dependencies = append(dependencies, nodeDepndencies...)
+	depComponents = append(depComponents, nodeComponent...)
+	bom := cdx.NewBOM()
+	bom.Metadata = &metadata
+	bom.Components = &depComponents
+	//bom.Components = &components
+	bom.Dependencies = &dependencies
+
+	err = cdx.NewBOMEncoder(os.Stdout, cdx.BOMFileFormatJSON).
+		SetPretty(true).
+		Encode(bom)
 	if err != nil {
-		panic(err.Error())
+		panic(err)
 	}
-	fmt.Print(string(b))
 }
