@@ -43,7 +43,7 @@ func GetBasicMetadata(clusterName string, serverVersion *version.Info) Metadata 
 	}
 }
 
-func CreateBasicSbom(version *version.Info, metadata Metadata, components []Component, Addons []Component, nodeInfo []NodeInfo) *Cluster {
+func CreateBasicBom(version *version.Info, metadata Metadata, components []Component, Addons []Component, nodeInfo []NodeInfo) *Cluster {
 	bom := &Cluster{
 		Version:  version.GitVersion,
 		Metadata: metadata,

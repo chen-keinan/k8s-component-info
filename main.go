@@ -93,8 +93,8 @@ func main() {
 		if err != nil {
 			panic(err.Error())
 		}
-		bom := k8s.CreateBasicSbom(serverVersion, metadata, components, addons, nodesInfo)
-		b, err := json.MarshalIndent(&bom,"","	")
+		bom := k8s.CreateBasicBom(serverVersion, metadata, components, addons, nodesInfo)
+		b, err := json.MarshalIndent(&bom, "", "	")
 		fmt.Print(string(b))
 	}
 }
