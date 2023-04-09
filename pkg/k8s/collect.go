@@ -20,12 +20,21 @@ func CreateCycloneDXSbom(metadata cdx.Metadata, dependencies []cdx.Dependency, c
 }
 
 func GetSbomMetadata(clusterName string, serverVersion *version.Info) cdx.Metadata {
+	tools := &[]cdx.Tool{
+		{
+			Vendor:  "aquasecurity",
+			Name:    "trivy",
+			Version: "0.38.1",
+		},
+	}
 	return cdx.Metadata{
 		Timestamp: CurrentTimeStamp(),
+		Tools:     tools,
 		Component: &cdx.Component{
-			BOMRef:  fmt.Sprintf("pkg:%s:%s", clusterName, strings.Replace(serverVersion.GitVersion, "v", "", -1)),
-			Type:    cdx.ComponentTypeApplication,
-			Name:    clusterName,
+			BOMRef: fmt.Sprintf("pkg:%s:%s", clusterName, strings.Replace(serverVersion.GitVersion, "v", "", -1)),
+			Type:   cdx.ComponentTypeApplication,
+			Name:   clusterName,
+
 			Version: serverVersion.GitVersion,
 		},
 	}

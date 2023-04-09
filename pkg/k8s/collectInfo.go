@@ -26,8 +26,16 @@ func GetBaseComponent(imageRef name.Reference, imageName name.Reference) (Compon
 }
 
 func GetBasicMetadata(clusterName string, serverVersion *version.Info) Metadata {
+	tools := []Tool{
+		{
+			Vendor:  "aquasecurity",
+			Name:    "trivy",
+			Version: "0.38.1",
+		},
+	}
 	return Metadata{
 		Timestamp: CurrentTimeStamp(),
+		Tools:     tools,
 		Component: Component{
 			Name:    clusterName,
 			Version: serverVersion.GitVersion,

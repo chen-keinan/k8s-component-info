@@ -5,7 +5,7 @@ type Cluster struct {
 	Version      string       `json:"version,omitempty"`
 	ControlPlane ControlPlane `json:"control_plane,omitempty"`
 	NodesInfo    []NodeInfo   `json:"nodes,omitempty"`
-	Addons       []Component `json:"addons,omitempty"`
+	Addons       []Component  `json:"addons,omitempty"`
 }
 
 type NodeInfo struct {
