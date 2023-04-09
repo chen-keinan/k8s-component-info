@@ -28,16 +28,23 @@ func main() {
 	}
 	var components []cdx.Component
 	args := os.Args
+	cdxComponents := make([]cdx.Component, 0)
 	if len(args) > 1 && args[1] == "ocp" {
-		components = k8s.CollectOpenShiftComponents(clientset)
+		components, err = k8s.CollectOpenShiftComponents(cdxComponents, clientset, k8s.GetSbomComponent)
+		if err != nil {
+		panic(err.Error())
+	}
 	} else {
 		// collect core components
-		components = k8s.CollectCoreComponents(clientset)
+		components, err = k8s.CollectCoreComponents(cdxComponents, clientset, k8s.GetSbomComponent)
+		if err != nil {
+		panic(err.Error())
+	}
 	}
 	// collect nodes info
 	nodesInfo := k8s.CollectNodes(clientset)
 	// collect addons info
-	addons := k8s.CollectAddons(clientset)
+	addons, err := k8s.CollectAddons(cdxComponents, clientset, k8s.GetSbomComponent)
 	rawCfg, err := clientConfig.RawConfig()
 	if err != nil {
 		panic(err.Error())

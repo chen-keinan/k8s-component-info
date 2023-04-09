@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	cdx "github.com/CycloneDX/cyclonedx-go"
+	"github.com/google/go-containerregistry/pkg/name"
 	containerimage "github.com/google/go-containerregistry/pkg/name"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -19,44 +20,21 @@ const (
 	k8sComponentNamespace = "kube-system"
 )
 
-func CollectNodes(clientset *kubernetes.Clientset) []NodeInfo {
-	nodes, err := clientset.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
-	if err != nil {
-		panic(err.Error())
-	}
-	nodesInfo := make([]NodeInfo, 0)
-	for _, node := range nodes.Items {
-		nodeRole := "worker"
-		if _, ok := node.Labels["node-role.kubernetes.io/control-plane"]; ok {
-			nodeRole = "master"
-		}
-		if _, ok := node.Labels["node-role.kubernetes.io/master"]; ok {
-			nodeRole = "master"
-		}
-		nodesInfo = append(nodesInfo, NodeInfo{
-			NodeName:                node.Name,
-			KubeletVersion:          node.Status.NodeInfo.KubeletVersion,
-			ContainerRuntimeVersion: node.Status.NodeInfo.ContainerRuntimeVersion,
-			OsImage:                 node.Status.NodeInfo.OSImage,
-			Hostname:                node.ObjectMeta.Name,
-			KernelVersion:           node.Status.NodeInfo.KernelVersion,
-			KubeProxyVersion:        node.Status.NodeInfo.KernelVersion,
-			OperatingSystem:         node.Status.NodeInfo.OperatingSystem,
-			Architecture:            node.Status.NodeInfo.Architecture,
-			NodeRole:                nodeRole,
-		})
-	}
-	return nodesInfo
-}
-
-func CollectCoreComponents(clientset *kubernetes.Clientset) []cdx.Component {
+func CollectCoreComponents[T any](components []T, clientset *kubernetes.Clientset, getComponent func(name.Reference, name.Reference) (T, error)) ([]T, error) {
 	labelSelector := "component"
 	pods := GetPodsInfo(clientset, labelSelector, k8sComponentNamespace)
-	components := make([]cdx.Component, 0)
 
 	for _, pod := range pods.Items {
 		for _, s := range pod.Status.ContainerStatuses {
-			c, err := GetSbomComponent(s)
+			imageRef, err := containerimage.ParseReference(s.ImageID)
+			if err != nil {
+				return nil, err
+			}
+			imageName, err := containerimage.ParseReference(s.Image)
+			if err != nil {
+				return nil, err
+			}
+			c, err := getComponent(imageRef, imageName)
 			if err != nil {
 				continue
 			}
@@ -64,23 +42,30 @@ func CollectCoreComponents(clientset *kubernetes.Clientset) []cdx.Component {
 		}
 
 	}
-	return components
+	return components, nil
 }
 
-func CollectAddons(clientset *kubernetes.Clientset) []cdx.Component {
+func CollectAddons[T any](addons []T, clientset *kubernetes.Clientset, getComponent func(name.Reference, name.Reference) (T, error)) ([]T, error) {
 	labelSelector := "k8s-app"
 	pods := GetPodsInfo(clientset, labelSelector, k8sComponentNamespace)
-	addons := make([]cdx.Component, 0)
 	for _, pod := range pods.Items {
 		for _, s := range pod.Status.ContainerStatuses {
-			c, err := GetSbomComponent(s)
+			imageRef, err := containerimage.ParseReference(s.ImageID)
+			if err != nil {
+				return nil, err
+			}
+			imageName, err := containerimage.ParseReference(s.Image)
+			if err != nil {
+				return nil, err
+			}
+			c, err := getComponent(imageRef, imageName)
 			if err != nil {
 				continue
 			}
 			addons = append(addons, c)
 		}
 	}
-	return addons
+	return addons, nil
 }
 
 func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string, namespace string) *corev1.PodList {
@@ -104,20 +89,27 @@ func GetDependencies(ref string, components []cdx.Component) []Dependency {
 	return dependencies
 }
 
-func CollectOpenShiftComponents(clientset *kubernetes.Clientset) []cdx.Component {
+func CollectOpenShiftComponents[T any](components []T, clientset *kubernetes.Clientset, getComponent func(name.Reference, name.Reference) (T, error)) ([]T, error) {
 	namespaceLabel := map[string]string{
 		"openshift-kube-apiserver":          "apiserver",
 		"openshift-kube-controller-manager": "kube-controller-manager",
 		"openshift-kube-scheduler":          "scheduler",
 		"openshift-etcd":                    "etcd",
 	}
-	components := make([]cdx.Component, 0)
 	for namespace, labelSelector := range namespaceLabel {
 		pods := GetPodsInfo(clientset, labelSelector, namespace)
 
 		for _, pod := range pods.Items {
 			for _, s := range pod.Status.ContainerStatuses {
-				c, err := GetSbomComponent(s)
+				imageRef, err := containerimage.ParseReference(s.ImageID)
+				if err != nil {
+					return nil, err
+				}
+				imageName, err := containerimage.ParseReference(s.Image)
+				if err != nil {
+					return nil, err
+				}
+				c, err := getComponent(imageRef, imageName)
 				if err != nil {
 					continue
 				}
@@ -126,7 +118,7 @@ func CollectOpenShiftComponents(clientset *kubernetes.Clientset) []cdx.Component
 
 		}
 	}
-	return components
+	return components, nil
 }
 
 func CreateSbom() {
@@ -187,15 +179,7 @@ func GetSbomMetadata(clusterName string, serverVersion *version.Info) cdx.Metada
 	}
 }
 
-func GetSbomComponent(containerStatus corev1.ContainerStatus) (cdx.Component, error) {
-	imageRef, err := containerimage.ParseReference(containerStatus.ImageID)
-	if err != nil {
-		return cdx.Component{}, err
-	}
-	imageName, err := containerimage.ParseReference(containerStatus.Image)
-	if err != nil {
-		return cdx.Component{}, err
-	}
+func GetSbomComponent(imageRef name.Reference, imageName name.Reference) (cdx.Component, error) {
 	repoName := imageRef.Context().RepositoryStr()
 	registryName := imageRef.Context().RegistryStr()
 	if strings.HasPrefix(repoName, "library/sha256") {
@@ -233,9 +217,12 @@ func GettNodeComponentAndDependency(nodesInfo []NodeInfo) ([]cdx.Component, []cd
 	components := make([]cdx.Component, 0)
 	dependencies := make([]cdx.Dependency, 0)
 	for _, n := range nodesInfo {
+		nodePurl := fmt.Sprintf("pkg:%s", n.NodeName)
 		nodeComponent := cdx.Component{
-			Name: n.NodeName,
-			Type: cdx.ComponentTypeContainer,
+			Name:       n.NodeName,
+			BOMRef:     nodePurl,
+			PackageURL: nodePurl,
+			Type:       cdx.ComponentTypeContainer,
 			Properties: &[]cdx.Property{
 				{
 					Name:  "node-role",
@@ -278,7 +265,7 @@ func GettNodeComponentAndDependency(nodesInfo []NodeInfo) ([]cdx.Component, []cd
 				Dependencies: &[]string{osComponent.BOMRef},
 			})
 
-			kubletPurl := fmt.Sprintf("pkg:kube-proxy@%s", n.KubeletVersion)
+			kubletPurl := fmt.Sprintf("pkg:kubelet@%s", n.KubeletVersion)
 			kubletComponent := cdx.Component{
 				BOMRef:     kubletPurl,
 				Name:       "kubelet",
@@ -306,7 +293,7 @@ func GettNodeComponentAndDependency(nodesInfo []NodeInfo) ([]cdx.Component, []cd
 			components = append(components, kubeProxyComponent)
 
 			containerdParts := strings.Split(n.ContainerRuntimeVersion, "://")
-			continerdPurl := fmt.Sprintf("pkg:%s@v%s", osParts[0], osParts[1])
+			continerdPurl := fmt.Sprintf("pkg:%s@v%s", containerdParts[0], containerdParts[1])
 			containerdComponent := cdx.Component{
 				BOMRef:     continerdPurl,
 				Name:       containerdParts[0],
