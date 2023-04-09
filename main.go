@@ -94,7 +94,7 @@ func main() {
 			panic(err.Error())
 		}
 		bom := k8s.CreateBasicSbom(serverVersion, metadata, components, addons, nodesInfo)
-		b, err := json.Marshal(&bom)
+		b, err := json.MarshalIndent(&bom,"","	")
 		fmt.Print(string(b))
 	}
 }
