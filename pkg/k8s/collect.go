@@ -2,7 +2,6 @@ package k8s
 
 import (
 	"strings"
-	"time"
 
 	"fmt"
 
@@ -12,38 +11,17 @@ import (
 	"k8s.io/apimachinery/pkg/version"
 )
 
-const (
-	k8sComponentNamespace = "kube-system"
-)
-
-func GetDependencies(ref string, components []cdx.Component) []Dependency {
-	dependencies := make([]Dependency, 0)
-	dependsOn := make([]string, 0)
-	for _, c := range components {
-		dependsOn = append(dependsOn, fmt.Sprintf("pkg:%s/%s", c.Type, fmt.Sprintf("%s@%s", c.Name, c.Version)))
-	}
-	dependencies = append(dependencies, Dependency{
-		Ref:       ref,
-		DependsOn: dependsOn,
-	})
-	return dependencies
-}
-
 func CreateCycloneDXSbom(metadata cdx.Metadata, dependencies []cdx.Dependency, components []cdx.Component) *cdx.BOM {
-	// Assemble the BOM
 	bom := cdx.NewBOM()
 	bom.Metadata = &metadata
 	bom.Components = &components
-	//bom.Components = &components
 	bom.Dependencies = &dependencies
 	return bom
 }
 
 func GetSbomMetadata(clusterName string, serverVersion *version.Info) cdx.Metadata {
-	now := time.Now()
-	ftime := now.Format(time.RFC3339)
 	return cdx.Metadata{
-		Timestamp: ftime,
+		Timestamp: CurrentTimeStamp(),
 		Component: &cdx.Component{
 			BOMRef:  fmt.Sprintf("pkg:%s:%s", clusterName, strings.Replace(serverVersion.GitVersion, "v", "", -1)),
 			Type:    cdx.ComponentTypeApplication,

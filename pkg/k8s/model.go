@@ -1,15 +1,11 @@
 package k8s
 
 type Cluster struct {
-	BomFormat    string       `json:"bomFormat,omitempty"`
-	SpecVersion  string       `json:"specVersion,omitempty"`
-	SerialNumber string       `json:"serialNumber,omitempty"`
 	Metadata     Metadata     `json:"metadata,omitempty"`
-	Version      int          `json:"version,omitempty"`
+	Version      string       `json:"version,omitempty"`
 	ControlPlane ControlPlane `json:"control_plane,omitempty"`
 	NodesInfo    []NodeInfo   `json:"nodes,omitempty"`
-	Addons       []*Component `json:"addons,omitempty"`
-	Dependencies []Dependency `json:"dependencies,omitempty"`
+	Addons       []Component `json:"addons,omitempty"`
 }
 
 type NodeInfo struct {
@@ -26,27 +22,16 @@ type NodeInfo struct {
 }
 
 type ControlPlane struct {
-	Components []*Component `json:"components,omitempty"`
+	Components []Component `json:"components,omitempty"`
 }
 
 type Component struct {
-	BomRef      string     `json:"bom-ref,omitempty"`
-	Type        string     `json:"type,omitempty"`
-	Name        string     `json:"name,omitempty"`
-	NameVersion string     `json:"-"`
-	Purl        string     `json:"purl,omitempty"`
-	Version     string     `json:"version,omitempty"`
-	Licenses    []License  `json:"licenses,omitempty"`
-	Properties  []Property `json:"properties,omitempty"`
-}
-
-type License struct {
-	Expression string `json:"expression,omitempty"`
-}
-
-type Property struct {
-	Name  string `json:"name,omitempty"`
-	Value string `json:"value,omitempty"`
+	Type       string `json:"type,omitempty"`
+	Name       string `json:"name,omitempty"`
+	Version    string `json:"version,omitempty"`
+	Repository string `json:"repository,omitempty"`
+	Registry   string `json:"registry,omitempty"`
+	Digest     string `json:"digest,omitempty"`
 }
 
 type Metadata struct {
@@ -59,9 +44,4 @@ type Tool struct {
 	Vendor  string `json:"vendor,omitempty"`
 	Name    string `json:"name,omitempty"`
 	Version string `json:"version,omitempty"`
-}
-
-type Dependency struct {
-	Ref       string   `json:"ref,omitempty"`
-	DependsOn []string `json:"dependsOn,omitempty"`
 }

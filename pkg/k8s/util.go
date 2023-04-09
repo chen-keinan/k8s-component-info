@@ -2,12 +2,18 @@ package k8s
 
 import (
 	"context"
+	"time"
 
 	"github.com/google/go-containerregistry/pkg/name"
 	containerimage "github.com/google/go-containerregistry/pkg/name"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/kubernetes"
+)
+
+const (
+	k8sComponentNamespace = "kube-system"
 )
 
 func CollectNodes(clientset *kubernetes.Clientset) []NodeInfo {
@@ -126,4 +132,13 @@ func CollectOpenShiftComponents[T any](components []T, clientset *kubernetes.Cli
 		}
 	}
 	return components, nil
+}
+
+func CurrentTimeStamp() string {
+	now := time.Now()
+	return now.Format(time.RFC3339)
+}
+
+func GetMetadata[T any](clusterName string, serverVersion *version.Info, getMetadata func(string, *version.Info) T) T {
+	return getMetadata(clusterName, serverVersion)
 }
