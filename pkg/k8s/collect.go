@@ -1,7 +1,6 @@
 package k8s
 
 import (
-	"context"
 	"strings"
 	"time"
 
@@ -9,72 +8,13 @@ import (
 
 	cdx "github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/go-containerregistry/pkg/name"
-	containerimage "github.com/google/go-containerregistry/pkg/name"
-	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 	"k8s.io/apimachinery/pkg/version"
-	"k8s.io/client-go/kubernetes"
 )
 
 const (
 	k8sComponentNamespace = "kube-system"
 )
-
-func CollectCoreComponents[T any](components []T, clientset *kubernetes.Clientset, getComponent func(name.Reference, name.Reference) (T, error)) ([]T, error) {
-	labelSelector := "component"
-	pods := GetPodsInfo(clientset, labelSelector, k8sComponentNamespace)
-
-	for _, pod := range pods.Items {
-		for _, s := range pod.Status.ContainerStatuses {
-			imageRef, err := containerimage.ParseReference(s.ImageID)
-			if err != nil {
-				return nil, err
-			}
-			imageName, err := containerimage.ParseReference(s.Image)
-			if err != nil {
-				return nil, err
-			}
-			c, err := getComponent(imageRef, imageName)
-			if err != nil {
-				continue
-			}
-			components = append(components, c)
-		}
-
-	}
-	return components, nil
-}
-
-func CollectAddons[T any](addons []T, clientset *kubernetes.Clientset, getComponent func(name.Reference, name.Reference) (T, error)) ([]T, error) {
-	labelSelector := "k8s-app"
-	pods := GetPodsInfo(clientset, labelSelector, k8sComponentNamespace)
-	for _, pod := range pods.Items {
-		for _, s := range pod.Status.ContainerStatuses {
-			imageRef, err := containerimage.ParseReference(s.ImageID)
-			if err != nil {
-				return nil, err
-			}
-			imageName, err := containerimage.ParseReference(s.Image)
-			if err != nil {
-				return nil, err
-			}
-			c, err := getComponent(imageRef, imageName)
-			if err != nil {
-				continue
-			}
-			addons = append(addons, c)
-		}
-	}
-	return addons, nil
-}
-
-func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string, namespace string) *corev1.PodList {
-	pods, err := clientset.CoreV1().Pods(namespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
-	if err != nil {
-		panic(err.Error())
-	}
-	return pods
-}
 
 func GetDependencies(ref string, components []cdx.Component) []Dependency {
 	dependencies := make([]Dependency, 0)
@@ -89,80 +29,14 @@ func GetDependencies(ref string, components []cdx.Component) []Dependency {
 	return dependencies
 }
 
-func CollectOpenShiftComponents[T any](components []T, clientset *kubernetes.Clientset, getComponent func(name.Reference, name.Reference) (T, error)) ([]T, error) {
-	namespaceLabel := map[string]string{
-		"openshift-kube-apiserver":          "apiserver",
-		"openshift-kube-controller-manager": "kube-controller-manager",
-		"openshift-kube-scheduler":          "scheduler",
-		"openshift-etcd":                    "etcd",
-	}
-	for namespace, labelSelector := range namespaceLabel {
-		pods := GetPodsInfo(clientset, labelSelector, namespace)
-
-		for _, pod := range pods.Items {
-			for _, s := range pod.Status.ContainerStatuses {
-				imageRef, err := containerimage.ParseReference(s.ImageID)
-				if err != nil {
-					return nil, err
-				}
-				imageName, err := containerimage.ParseReference(s.Image)
-				if err != nil {
-					return nil, err
-				}
-				c, err := getComponent(imageRef, imageName)
-				if err != nil {
-					continue
-				}
-				components = append(components, c)
-			}
-
-		}
-	}
-	return components, nil
-}
-
-func CreateSbom() {
-	metadata := cdx.Metadata{
-		// Define metadata about the main component
-		// (the component which the BOM will describe)
-		Component: &cdx.Component{
-			BOMRef:  "pkg:golang/acme-inc/acme-app@v1.0.0",
-			Type:    cdx.ComponentTypeApplication,
-			Name:    "ACME Application",
-			Version: "v1.0.0",
-		},
-		// Use properties to include an internal identifier for this BOM
-		// https://cyclonedx.org/use-cases/#properties--name-value-store
-		Properties: &[]cdx.Property{
-			{
-				Name:  "internal:bom-identifier",
-				Value: "123456789",
-			},
-		},
-	}
-
-	// Define the components that acme-app ships with
-	// https://cyclonedx.org/use-cases/#inventory
-
-	// Define the dependency graph
-	// https://cyclonedx.org/use-cases/#dependency-graph
-	dependencies := []cdx.Dependency{
-		{
-			Ref: "pkg:golang/acme-inc/acme-app@v1.0.0",
-			Dependencies: &[]string{
-				"pkg:golang/github.com/CycloneDX/cyclonedx-go@v0.3.0",
-			},
-		},
-		{
-			Ref: "pkg:golang/github.com/CycloneDX/cyclonedx-go@v0.3.0",
-		},
-	}
-
+func CreateCycloneDXSbom(metadata cdx.Metadata, dependencies []cdx.Dependency, components []cdx.Component) *cdx.BOM {
 	// Assemble the BOM
 	bom := cdx.NewBOM()
 	bom.Metadata = &metadata
+	bom.Components = &components
 	//bom.Components = &components
 	bom.Dependencies = &dependencies
+	return bom
 }
 
 func GetSbomMetadata(clusterName string, serverVersion *version.Info) cdx.Metadata {

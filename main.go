@@ -32,38 +32,34 @@ func main() {
 	if len(args) > 1 && args[1] == "ocp" {
 		components, err = k8s.CollectOpenShiftComponents(cdxComponents, clientset, k8s.GetSbomComponent)
 		if err != nil {
-		panic(err.Error())
-	}
+			panic(err.Error())
+		}
 	} else {
 		// collect core components
 		components, err = k8s.CollectCoreComponents(cdxComponents, clientset, k8s.GetSbomComponent)
 		if err != nil {
-		panic(err.Error())
-	}
+			panic(err.Error())
+		}
 	}
 	// collect nodes info
 	nodesInfo := k8s.CollectNodes(clientset)
 	// collect addons info
 	addons, err := k8s.CollectAddons(cdxComponents, clientset, k8s.GetSbomComponent)
+	if err != nil {
+		panic(err.Error())
+	}
 	rawCfg, err := clientConfig.RawConfig()
 	if err != nil {
 		panic(err.Error())
 	}
-	depComponents := make([]cdx.Component, 0)
-	depComponents = append(depComponents, components...)
-	depComponents = append(depComponents, addons...)
 	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
 	metadata := k8s.GetSbomMetadata(clusterName, serverVersion)
-	dependencies := k8s.GetSbomDependency(metadata.Component.BOMRef, depComponents)
+	dependencies := k8s.GetSbomDependency(metadata.Component.BOMRef, components)
 	nodeComponent, nodeDepndencies := k8s.GettNodeComponentAndDependency(nodesInfo)
 	dependencies = append(dependencies, nodeDepndencies...)
-	depComponents = append(depComponents, nodeComponent...)
-	bom := cdx.NewBOM()
-	bom.Metadata = &metadata
-	bom.Components = &depComponents
-	//bom.Components = &components
-	bom.Dependencies = &dependencies
-
+	components = append(components, addons...)
+	components = append(components, nodeComponent...)
+	bom := k8s.CreateCycloneDXSbom(metadata, dependencies, components)
 	err = cdx.NewBOMEncoder(os.Stdout, cdx.BOMFileFormatJSON).
 		SetPretty(true).
 		Encode(bom)
