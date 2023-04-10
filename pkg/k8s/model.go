@@ -1,6 +1,6 @@
 package k8s
 
-type Cluster struct {
+type ClusterBom struct {
 	Metadata     Metadata     `json:"metadata,omitempty"`
 	ControlPlane ControlPlane `json:"control_plane,omitempty"`
 	NodesInfo    []NodeInfo   `json:"nodes,omitempty"`

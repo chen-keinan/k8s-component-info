@@ -22,48 +22,22 @@ func main() {
 		panic(err.Error())
 	}
 
-	serverVersion, err := clientset.ServerVersion()
-	if err != nil {
-		panic(err.Error())
-	}
-
 	args := os.Args
 	// collect nodes info
-	nodesInfo := k8s.CollectNodes(clientset)
-	// collect addons info
-
-	rawCfg, err := clientConfig.RawConfig()
+	c := k8s.NewCluster(clientset, clientConfig)
+	clusterType := ""
+	if len(args) > 2 && args[2] == "ocp" {
+		clusterType = "ocp"
+	}
+	clusterBom, err := c.CreateClusterSbom(clusterType)
 	if err != nil {
 		panic(err.Error())
 	}
-	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
-
-	baseComponents := make([]k8s.Component, 0)
-	addonComponents := make([]k8s.Component, 0)
-	var components []k8s.Component
-	if len(args) > 2 && len(args) > 1 && args[2] == "ocp" {
-		components, err = k8s.CollectOpenShiftComponents(baseComponents, clientset, k8s.GetBaseComponent)
-		if err != nil {
-			panic(err.Error())
-		}
-	} else {
-		// collect core components
-		components, err = k8s.CollectCoreComponents(baseComponents, clientset, k8s.GetBaseComponent)
-		if err != nil {
-			panic(err.Error())
-		}
-	}
-	metadata := k8s.GetMetadata(clusterName, serverVersion, k8s.GetBasicMetadata)
-	addons, err := k8s.CollectAddons(addonComponents, clientset, k8s.GetBaseComponent)
-	if err != nil {
-		panic(err.Error())
-	}
-	bom := k8s.CreateBasicBom(serverVersion, metadata, components, addons, nodesInfo)
 	bomType := ""
 	if len(args) > 1 {
 		bomType = args[1]
 	}
-	err = k8s.WriteOutput(bom, bomType, "json")
+	err = k8s.WriteOutput(clusterBom, bomType, "json")
 	if err != nil {
 		panic(err.Error())
 	}
