@@ -25,11 +25,7 @@ func main() {
 	args := os.Args
 	// collect nodes info
 	c := k8s.NewCluster(clientset, clientConfig)
-	clusterType := ""
-	if len(args) > 2 && args[2] == "ocp" {
-		clusterType = "ocp"
-	}
-	clusterBom, err := c.CreateClusterSbom(clusterType)
+	clusterBom, err := c.CreateClusterSbom()
 	if err != nil {
 		panic(err.Error())
 	}

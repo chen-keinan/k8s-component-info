@@ -8,6 +8,7 @@ import (
 	"github.com/google/go-containerregistry/pkg/name"
 	containerimage "github.com/google/go-containerregistry/pkg/name"
 	corev1 "k8s.io/api/core/v1"
+	k8sapierror "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
@@ -26,41 +27,38 @@ func NewCluster(clientSet *kubernetes.Clientset, clientConfig clientcmd.ClientCo
 	return &Cluster{clientSet: clientSet, cConfig: clientConfig}
 }
 
-func (bom *Cluster) CreateClusterSbom(clusterType string) (*ClusterBom, error) {
-	nodesInfo := bom.CollectNodes()
+func (cluster *Cluster) CreateClusterSbom() (*ClusterBom, error) {
+	nodesInfo := cluster.CollectNodes()
 	// collect addons info
 	var components []Component
 	var err error
-	var labels map[string]string
-	if clusterType == "ocp" {
+	labels := map[string]string{
+		k8sComponentNamespace: "component",
+	}
+	if cluster.isOpenShift() {
 		labels = map[string]string{
 			"openshift-kube-apiserver":          "apiserver",
 			"openshift-kube-controller-manager": "kube-controller-manager",
 			"openshift-kube-scheduler":          "scheduler",
 			"openshift-etcd":                    "etcd",
 		}
-	} else {
-		// collect core components
-		labels = map[string]string{
-			k8sComponentNamespace: "component",
-		}
 	}
-	components, err = bom.collectComponents(labels)
+	components, err = cluster.collectComponents(labels)
 	if err != nil {
 		return nil, err
 	}
-	metadata, err := bom.getBasicMetadata()
+	metadata, err := cluster.getBasicMetadata()
 	if err != nil {
 		return nil, err
 	}
 	addonLabels := map[string]string{
 		k8sComponentNamespace: "k8s-app",
 	}
-	addons, err := bom.collectComponents(addonLabels)
+	addons, err := cluster.collectComponents(addonLabels)
 	if err != nil {
 		return nil, err
 	}
-	return bom.CreateClusterBom(metadata, components, addons, nodesInfo), nil
+	return cluster.CreateClusterBom(metadata, components, addons, nodesInfo), nil
 }
 
 func (bom *Cluster) GetBaseComponent(imageRef name.Reference, imageName name.Reference) (Component, error) {
@@ -80,13 +78,13 @@ func (bom *Cluster) GetBaseComponent(imageRef name.Reference, imageName name.Ref
 	}, nil
 }
 
-func (bom *Cluster) getBasicMetadata() (Metadata, error) {
-	rawCfg, err := bom.cConfig.RawConfig()
+func (cluster *Cluster) getBasicMetadata() (Metadata, error) {
+	rawCfg, err := cluster.cConfig.RawConfig()
 	if err != nil {
 		return Metadata{}, err
 	}
 	clusterName := rawCfg.Contexts[rawCfg.CurrentContext].Cluster
-	version, err := bom.clientSet.ServerVersion()
+	version, err := cluster.clientSet.ServerVersion()
 	if err != nil {
 		return Metadata{}, err
 	}
@@ -119,8 +117,8 @@ func (bom *Cluster) CreateClusterBom(metadata Metadata, components []Component, 
 	return cluster
 }
 
-func (bom *Cluster) CollectNodes() []NodeInfo {
-	nodes, err := bom.clientSet.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
+func (cluster *Cluster) CollectNodes() []NodeInfo {
+	nodes, err := cluster.clientSet.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
 	if err != nil {
 		panic(err.Error())
 	}
@@ -157,10 +155,10 @@ func getPodsInfo(clientset *kubernetes.Clientset, labelSelector string, namespac
 	return pods
 }
 
-func (bom *Cluster) collectComponents(labels map[string]string) ([]Component, error) {
+func (cluster *Cluster) collectComponents(labels map[string]string) ([]Component, error) {
 	components := make([]Component, 0)
 	for namespace, labelSelector := range labels {
-		pods := getPodsInfo(bom.clientSet, labelSelector, namespace)
+		pods := getPodsInfo(cluster.clientSet, labelSelector, namespace)
 		for _, pod := range pods.Items {
 			for _, s := range pod.Status.ContainerStatuses {
 				imageRef, err := containerimage.ParseReference(s.ImageID)
@@ -171,7 +169,7 @@ func (bom *Cluster) collectComponents(labels map[string]string) ([]Component, er
 				if err != nil {
 					return nil, err
 				}
-				c, err := bom.GetBaseComponent(imageRef, imageName)
+				c, err := cluster.GetBaseComponent(imageRef, imageName)
 				if err != nil {
 					continue
 				}
@@ -181,4 +179,10 @@ func (bom *Cluster) collectComponents(labels map[string]string) ([]Component, er
 		}
 	}
 	return components, nil
+}
+
+func (cluster *Cluster) isOpenShift() bool {
+	ctx := context.Background()
+	_, err := cluster.clientSet.CoreV1().Namespaces().Get(ctx, "openshift-kube-apiserver", metav1.GetOptions{})
+	return !k8sapierror.IsNotFound(err)
 }
