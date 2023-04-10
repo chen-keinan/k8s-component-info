@@ -63,6 +63,9 @@ func main() {
 	if len(args) > 1 {
 		bomType = args[1]
 	}
-	k8s.WriteOutput(bom, bomType, "json")
+	err = k8s.WriteOutput(bom, bomType, "json")
+	if err != nil {
+		panic(err.Error())
+	}
 
 }
