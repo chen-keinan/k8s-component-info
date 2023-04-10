@@ -15,7 +15,7 @@ func CurrentTimeStamp() string {
 	return now.Format(time.RFC3339)
 }
 
-func BomToCycloneDx(cluster *ClusterBom) *cdx.BOM {
+func bomToCycloneDx(cluster *ClusterBom) *cdx.BOM {
 	cMetadeata := cluster.Metadata
 	tools := make([]cdx.Tool, 0)
 	for _, t := range cMetadeata.Tools {
@@ -53,14 +53,14 @@ func BomToCycloneDx(cluster *ClusterBom) *cdx.BOM {
 			PackageURL: bomRef,
 		})
 	}
-	cdxDependecies := GetSbomDependency(cluster.Metadata.Component.Name, cdxComponents)
-	nodeComponents, nodeDependecies := GettNodeComponentAndDependency(cluster.NodesInfo)
+	cdxDependecies := getSbomDependency(cluster.Metadata.Component.Name, cdxComponents)
+	nodeComponents, nodeDependecies := gettNodeComponentAndDependency(cluster.NodesInfo)
 	cdxDependecies = append(cdxDependecies, nodeDependecies...)
 	cdxComponents = append(cdxComponents, nodeComponents...)
 	return CreateCycloneDXSbom(metadata, cdxDependecies, cdxComponents)
 }
 
-func GetSbomDependency(ref string, components []cdx.Component) []cdx.Dependency {
+func getSbomDependency(ref string, components []cdx.Component) []cdx.Dependency {
 	dependencies := make([]cdx.Dependency, 0)
 	dependsOn := make([]string, 0)
 	for _, c := range components {
@@ -73,7 +73,7 @@ func GetSbomDependency(ref string, components []cdx.Component) []cdx.Dependency 
 	return dependencies
 }
 
-func GettNodeComponentAndDependency(nodesInfo []NodeInfo) ([]cdx.Component, []cdx.Dependency) {
+func gettNodeComponentAndDependency(nodesInfo []NodeInfo) ([]cdx.Component, []cdx.Dependency) {
 	components := make([]cdx.Component, 0)
 	dependencies := make([]cdx.Dependency, 0)
 	for _, n := range nodesInfo {
@@ -183,7 +183,7 @@ func CreateCycloneDXSbom(metadata cdx.Metadata, dependencies []cdx.Dependency, c
 
 func WriteOutput(clsuter *ClusterBom, bomType string, format string) error {
 	if bomType == "cyclonedx" {
-		cdxBom := BomToCycloneDx(clsuter)
+		cdxBom := bomToCycloneDx(clsuter)
 
 		bomFormat := cdx.BOMFileFormatJSON
 		if format == "xml" {
