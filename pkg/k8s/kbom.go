@@ -31,27 +31,36 @@ func (bom *Cluster) CreateClusterSbom(clusterType string) (*ClusterBom, error) {
 	// collect addons info
 	var components []Component
 	var err error
+	var labels map[string]string
 	if clusterType == "ocp" {
-		components, err = bom.CollectOpenShiftComponents()
-		if err != nil {
-			return nil, err
+		labels = map[string]string{
+			"openshift-kube-apiserver":          "apiserver",
+			"openshift-kube-controller-manager": "kube-controller-manager",
+			"openshift-kube-scheduler":          "scheduler",
+			"openshift-etcd":                    "etcd",
 		}
 	} else {
 		// collect core components
-		components, err = bom.CollectCoreComponents()
-		if err != nil {
-			return nil, err
+		labels = map[string]string{
+			k8sComponentNamespace: "component",
 		}
 	}
-	metadata, err := bom.GetBasicMetadata()
+	components, err = bom.collectComponents(labels)
 	if err != nil {
 		return nil, err
 	}
-	addons, err := bom.CollectAddons()
+	metadata, err := bom.getBasicMetadata()
 	if err != nil {
 		return nil, err
 	}
-	return bom.CreateBasicBom(metadata, components, addons, nodesInfo), nil
+	addonLabels := map[string]string{
+		k8sComponentNamespace: "k8s-app",
+	}
+	addons, err := bom.collectComponents(addonLabels)
+	if err != nil {
+		return nil, err
+	}
+	return bom.CreateClusterBom(metadata, components, addons, nodesInfo), nil
 }
 
 func (bom *Cluster) GetBaseComponent(imageRef name.Reference, imageName name.Reference) (Component, error) {
@@ -71,7 +80,7 @@ func (bom *Cluster) GetBaseComponent(imageRef name.Reference, imageName name.Ref
 	}, nil
 }
 
-func (bom *Cluster) GetBasicMetadata() (Metadata, error) {
+func (bom *Cluster) getBasicMetadata() (Metadata, error) {
 	rawCfg, err := bom.cConfig.RawConfig()
 	if err != nil {
 		return Metadata{}, err
@@ -98,7 +107,7 @@ func (bom *Cluster) GetBasicMetadata() (Metadata, error) {
 	}, nil
 }
 
-func (bom *Cluster) CreateBasicBom(metadata Metadata, components []Component, Addons []Component, nodeInfo []NodeInfo) *ClusterBom {
+func (bom *Cluster) CreateClusterBom(metadata Metadata, components []Component, Addons []Component, nodeInfo []NodeInfo) *ClusterBom {
 	cluster := &ClusterBom{
 		Metadata: metadata,
 		ControlPlane: ControlPlane{
@@ -108,31 +117,6 @@ func (bom *Cluster) CreateBasicBom(metadata Metadata, components []Component, Ad
 		Addons:    Addons,
 	}
 	return cluster
-}
-
-func (bom *Cluster) CollectCoreComponents() ([]Component, error) {
-	labelSelector := "component"
-	pods := GetPodsInfo(bom.clientSet, labelSelector, k8sComponentNamespace)
-	components := make([]Component, 0)
-	for _, pod := range pods.Items {
-		for _, s := range pod.Status.ContainerStatuses {
-			imageRef, err := containerimage.ParseReference(s.ImageID)
-			if err != nil {
-				return nil, err
-			}
-			imageName, err := containerimage.ParseReference(s.Image)
-			if err != nil {
-				return nil, err
-			}
-			c, err := bom.GetBaseComponent(imageRef, imageName)
-			if err != nil {
-				continue
-			}
-			components = append(components, c)
-		}
-
-	}
-	return components, nil
 }
 
 func (bom *Cluster) CollectNodes() []NodeInfo {
@@ -165,7 +149,7 @@ func (bom *Cluster) CollectNodes() []NodeInfo {
 	return nodesInfo
 }
 
-func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string, namespace string) *corev1.PodList {
+func getPodsInfo(clientset *kubernetes.Clientset, labelSelector string, namespace string) *corev1.PodList {
 	pods, err := clientset.CoreV1().Pods(namespace).List(context.TODO(), metav1.ListOptions{LabelSelector: labelSelector})
 	if err != nil {
 		panic(err.Error())
@@ -173,41 +157,10 @@ func GetPodsInfo(clientset *kubernetes.Clientset, labelSelector string, namespac
 	return pods
 }
 
-func (bom *Cluster) CollectAddons() ([]Component, error) {
-	labelSelector := "k8s-app"
-	addons := make([]Component, 0)
-	pods := GetPodsInfo(bom.clientSet, labelSelector, k8sComponentNamespace)
-	for _, pod := range pods.Items {
-		for _, s := range pod.Status.ContainerStatuses {
-			imageRef, err := containerimage.ParseReference(s.ImageID)
-			if err != nil {
-				return nil, err
-			}
-			imageName, err := containerimage.ParseReference(s.Image)
-			if err != nil {
-				return nil, err
-			}
-			c, err := bom.GetBaseComponent(imageRef, imageName)
-			if err != nil {
-				continue
-			}
-			addons = append(addons, c)
-		}
-	}
-	return addons, nil
-}
-
-func (bom *Cluster) CollectOpenShiftComponents() ([]Component, error) {
+func (bom *Cluster) collectComponents(labels map[string]string) ([]Component, error) {
 	components := make([]Component, 0)
-	namespaceLabel := map[string]string{
-		"openshift-kube-apiserver":          "apiserver",
-		"openshift-kube-controller-manager": "kube-controller-manager",
-		"openshift-kube-scheduler":          "scheduler",
-		"openshift-etcd":                    "etcd",
-	}
-	for namespace, labelSelector := range namespaceLabel {
-		pods := GetPodsInfo(bom.clientSet, labelSelector, namespace)
-
+	for namespace, labelSelector := range labels {
+		pods := getPodsInfo(bom.clientSet, labelSelector, namespace)
 		for _, pod := range pods.Items {
 			for _, s := range pod.Status.ContainerStatuses {
 				imageRef, err := containerimage.ParseReference(s.ImageID)
