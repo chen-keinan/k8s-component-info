@@ -2,7 +2,6 @@ package k8s
 
 type Cluster struct {
 	Metadata     Metadata     `json:"metadata,omitempty"`
-	Version      string       `json:"version,omitempty"`
 	ControlPlane ControlPlane `json:"control_plane,omitempty"`
 	NodesInfo    []NodeInfo   `json:"nodes,omitempty"`
 	Addons       []Component  `json:"addons,omitempty"`
