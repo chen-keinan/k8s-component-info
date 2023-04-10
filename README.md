@@ -3,8 +3,9 @@
 ## Description
 k8s-component-info is an open source project which collect component and version info from runnning k8s cluster and produce k8s bill of materials.
 
-```sh
+```shell
 go build main.go
+```
 
 ## Native
 ./main 
@@ -156,8 +157,9 @@ go build main.go
 }
 ```
 
-
+```shell
 ./main cyclonedx
+```
 
 ## Cyclonedx 
 
