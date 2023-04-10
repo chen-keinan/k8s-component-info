@@ -7,7 +7,8 @@ k8s-component-info is an open source project which collect component and version
 go build main.go
 
 ## Native
-./main cyclonedx
+./main 
+
 ```json
 {
  "metadata": {
@@ -157,7 +158,7 @@ go build main.go
 
 
 ./main cyclonedx
-```
+
 ## Cyclonedx 
 
 ```json
