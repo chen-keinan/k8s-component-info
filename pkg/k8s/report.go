@@ -200,3 +200,12 @@ func WriteOutput(clsuter *ClusterBom, bomType string, format string) error {
 	fmt.Print(string(b))
 	return nil
 }
+
+func WritePkgBomOutput(clsuter *BomResult, bomType string, format string) error {
+	b, err := json.MarshalIndent(&clsuter, "", "	")
+	if err != nil {
+		return err
+	}
+	fmt.Print(string(b))
+	return nil
+}

@@ -42,11 +42,11 @@ var rootCmd = &cobra.Command{
 		}
 		// collect nodes info
 		c := k8s.NewCluster(clientset, clientConfig)
-		clusterBom, err := c.CreateClusterSbom()
+		clusterBom, err := c.CreatePkgBom()
 		if err != nil {
 			panic(err.Error())
 		}
-		err = k8s.WriteOutput(clusterBom, report, format)
+		err = k8s.WritePkgBomOutput(clusterBom, report, format)
 		if err != nil {
 			return err
 		}
